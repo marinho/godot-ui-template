@@ -1,11 +1,12 @@
 extends Node
 
-@export var file_name = "user://game.json"
+@export var file_name = "game.json"
+
+var file_path = ""
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	if not file_name.starts_with("user://"):
-		file_name = "user://" + file_name
+	file_path = "user://" + file_name
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -14,25 +15,23 @@ func _process(delta):
 
 
 func read_file_as_json():
-	var file = File.new()
-	if file.file_exists(file_name):
-		file.open(file_name, File.READ)
-		var contents = file.get_as_text()
-		file.close()
-		return JSON.parse(contents)
+	if FileAccess.file_exists(file_path):
+		var fp = FileAccess.open(file_path, FileAccess.READ)
+		var contents = fp.get_as_text()
+		var data = JSON.parse_string(contents)
+		print(1111, data) # XXX
+		return data
 	else:
 		return {}
 
 
 func save_json_to_file(json):
-	var file = File.new()
-	file.open(file_name, File.WRITE)
-	file.store_string(JSON.print(json))
-	file.close()
+	var fp = FileAccess.open(file_path, FileAccess.WRITE)
+	fp.store_string(JSON.stringify(json))
 
 
 func get_saved_games():
-	json = read_file_as_json()
+	var json = read_file_as_json()
 	if json.has("saved_games"):
 		return json["saved_games"]
 	else:
@@ -40,14 +39,13 @@ func get_saved_games():
 
 
 func save_new_game():
-	json = read_file_as_json()
+	var json = read_file_as_json()
 	if not json.has("saved_games"):
 		json["saved_games"] = []
 
 	var new_game = {
 		"id": json["saved_games"].size(),
-		"date": OS.get_date(),
-		"time": OS.get_time(),
+		"datetime": Time.get_datetime_dict_from_system (),
 		"completed_percent": 0.0,
 		"time_played": 0.0,
 		"player": {
@@ -71,7 +69,7 @@ func save_new_game():
 
 
 func load_game(game_id: String):
-	json = read_file_as_json()
+	var json = read_file_as_json()
 	if not json.has("saved_games"):
 		return null
 
