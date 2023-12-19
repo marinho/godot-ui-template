@@ -1,0 +1,140 @@
+[gd_scene load_steps=5 format=3 uid="uid://kel11cbeatq4"]
+
+[ext_resource type="Theme" uid="uid://d1tl4ouhddgg7" path="res://themes/base_theme.tres" id="1_coyy4"]
+[ext_resource type="Script" path="res://scripts/focus_first.gd" id="1_ta2ne"]
+[ext_resource type="Script" path="res://scripts/main_menu_screen.gd" id="1_wuwwh"]
+[ext_resource type="Script" path="res://scripts/credits_screen.gd" id="4_eaira"]
+
+[node name="Entry Scene" type="Node2D"]
+
+[node name="MainMenuScreen" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
+script = ExtResource("1_wuwwh")
+
+[node name="Focus First" type="Node" parent="MainMenuScreen" node_paths=PackedStringArray("controls_in_sequence")]
+script = ExtResource("1_ta2ne")
+focus_on_ready = true
+controls_in_sequence = [NodePath("../HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/LoadGameButton"), NodePath("../HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/NewGameButton"), NodePath("../HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/CreditsButton")]
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MainMenuScreen"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainMenuScreen/HBoxContainer"]
+layout_mode = 2
+
+[node name="Game Title Container" type="CenterContainer" parent="MainMenuScreen/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(2.08165e-12, 300)
+layout_mode = 2
+
+[node name="Game Title" type="RichTextLabel" parent="MainMenuScreen/HBoxContainer/VBoxContainer/Game Title Container"]
+layout_mode = 2
+theme = ExtResource("1_coyy4")
+theme_override_font_sizes/normal_font_size = 80
+bbcode_enabled = true
+text = "[center]Game Title or Logo"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MainMenuScreen/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainMenuScreen/HBoxContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(500, 2.08165e-12)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 40
+alignment = 1
+
+[node name="LoadGameButton" type="Button" parent="MainMenuScreen/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("1_coyy4")
+theme_override_font_sizes/font_size = 48
+text = "Load Game"
+
+[node name="NewGameButton" type="Button" parent="MainMenuScreen/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("1_coyy4")
+theme_override_font_sizes/font_size = 48
+text = "New Game"
+
+[node name="CreditsButton" type="Button" parent="MainMenuScreen/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_coyy4")
+theme_override_font_sizes/font_size = 48
+text = "Credits"
+
+[node name="QuitButton" type="Button" parent="MainMenuScreen/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_coyy4")
+theme_override_font_sizes/font_size = 48
+text = "Quit Game"
+
+[node name="Bottom Container" type="CenterContainer" parent="MainMenuScreen/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(2.08165e-12, 300)
+layout_mode = 2
+
+[node name="Copyrights Text" type="RichTextLabel" parent="MainMenuScreen/HBoxContainer/VBoxContainer/Bottom Container"]
+custom_minimum_size = Vector2(2.08165e-12, 2.08165e-12)
+layout_mode = 2
+theme = ExtResource("1_coyy4")
+theme_override_font_sizes/normal_font_size = 50
+bbcode_enabled = true
+text = "[center]Copyright 2023 Marinho Brandao"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
+[node name="CreditsScreen" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
+visible = false
+script = ExtResource("4_eaira")
+
+[node name="Focus First" type="Node" parent="CreditsScreen"]
+script = ExtResource("1_ta2ne")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CreditsScreen"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CreditsScreen/HBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CreditsScreen/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CreditsScreen/HBoxContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(1200, 2.08165e-12)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 40
+alignment = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CreditsScreen/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_coyy4")
+theme_override_font_sizes/normal_font_size = 36
+bbcode_enabled = true
+text = "[center]Copyright 2023 Marinho Brandao	"
+fit_content = true
+scroll_active = false
+
+[connection signal="pressed" from="MainMenuScreen/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/LoadGameButton" to="MainMenuScreen" method="_on_load_game_button_pressed"]
+[connection signal="pressed" from="MainMenuScreen/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/NewGameButton" to="MainMenuScreen" method="_on_new_game_button_pressed"]
+[connection signal="pressed" from="MainMenuScreen/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/CreditsButton" to="MainMenuScreen" method="_on_credits_button_pressed"]
+[connection signal="pressed" from="MainMenuScreen/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/QuitButton" to="MainMenuScreen" method="_on_quit_button_pressed"]
