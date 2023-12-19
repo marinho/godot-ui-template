@@ -1,22 +1,33 @@
-[gd_scene load_steps=5 format=3 uid="uid://kel11cbeatq4"]
+[gd_scene load_steps=6 format=3 uid="uid://kel11cbeatq4"]
 
 [ext_resource type="Theme" uid="uid://d1tl4ouhddgg7" path="res://themes/base_theme.tres" id="1_coyy4"]
 [ext_resource type="Script" path="res://scripts/focus_first.gd" id="1_ta2ne"]
 [ext_resource type="Script" path="res://scripts/main_menu_screen.gd" id="1_wuwwh"]
-[ext_resource type="Script" path="res://scripts/credits_screen.gd" id="4_eaira"]
+[ext_resource type="Script" path="res://scripts/escape_to_return.gd" id="4_eaira"]
+[ext_resource type="Script" path="res://addons/simple-gui-transitions/transition.gd" id="5_i743p"]
 
 [node name="Entry Scene" type="Node2D"]
 
-[node name="MainMenuScreen" type="CanvasLayer" parent="."]
-unique_name_in_owner = true
-script = ExtResource("1_wuwwh")
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="Focus First" type="Node" parent="MainMenuScreen" node_paths=PackedStringArray("controls_in_sequence")]
+[node name="MainMenu" type="Control" parent="CanvasLayer"]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_wuwwh")
+can_start_new_game = null
+can_load_game = null
+
+[node name="FocusFirst" type="Node" parent="CanvasLayer/MainMenu" node_paths=PackedStringArray("controls_in_sequence")]
 script = ExtResource("1_ta2ne")
-focus_on_ready = true
 controls_in_sequence = [NodePath("../HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/LoadGameButton"), NodePath("../HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/NewGameButton"), NodePath("../HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/CreditsButton")]
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MainMenuScreen"]
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/MainMenu"]
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -24,14 +35,14 @@ grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MainMenuScreen/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MainMenu/HBoxContainer"]
 layout_mode = 2
 
-[node name="Game Title Container" type="CenterContainer" parent="MainMenuScreen/HBoxContainer/VBoxContainer"]
+[node name="Game Title Container" type="CenterContainer" parent="CanvasLayer/MainMenu/HBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(2.08165e-12, 300)
 layout_mode = 2
 
-[node name="Game Title" type="RichTextLabel" parent="MainMenuScreen/HBoxContainer/VBoxContainer/Game Title Container"]
+[node name="Game Title" type="RichTextLabel" parent="CanvasLayer/MainMenu/HBoxContainer/VBoxContainer/Game Title Container"]
 layout_mode = 2
 theme = ExtResource("1_coyy4")
 theme_override_font_sizes/normal_font_size = 80
@@ -41,49 +52,49 @@ fit_content = true
 scroll_active = false
 autowrap_mode = 0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MainMenuScreen/HBoxContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/MainMenu/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MainMenuScreen/HBoxContainer/VBoxContainer/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MainMenu/HBoxContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(500, 2.08165e-12)
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 40
 alignment = 1
 
-[node name="LoadGameButton" type="Button" parent="MainMenuScreen/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+[node name="LoadGameButton" type="Button" parent="CanvasLayer/MainMenu/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 theme = ExtResource("1_coyy4")
 theme_override_font_sizes/font_size = 48
 text = "Load Game"
 
-[node name="NewGameButton" type="Button" parent="MainMenuScreen/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+[node name="NewGameButton" type="Button" parent="CanvasLayer/MainMenu/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 theme = ExtResource("1_coyy4")
 theme_override_font_sizes/font_size = 48
 text = "New Game"
 
-[node name="CreditsButton" type="Button" parent="MainMenuScreen/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+[node name="CreditsButton" type="Button" parent="CanvasLayer/MainMenu/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme = ExtResource("1_coyy4")
 theme_override_font_sizes/font_size = 48
 text = "Credits"
 
-[node name="QuitButton" type="Button" parent="MainMenuScreen/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+[node name="QuitButton" type="Button" parent="CanvasLayer/MainMenu/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme = ExtResource("1_coyy4")
 theme_override_font_sizes/font_size = 48
 text = "Quit Game"
 
-[node name="Bottom Container" type="CenterContainer" parent="MainMenuScreen/HBoxContainer/VBoxContainer"]
+[node name="Bottom Container" type="CenterContainer" parent="CanvasLayer/MainMenu/HBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(2.08165e-12, 300)
 layout_mode = 2
 
-[node name="Copyrights Text" type="RichTextLabel" parent="MainMenuScreen/HBoxContainer/VBoxContainer/Bottom Container"]
+[node name="Copyrights Text" type="RichTextLabel" parent="CanvasLayer/MainMenu/HBoxContainer/VBoxContainer/Bottom Container"]
 custom_minimum_size = Vector2(2.08165e-12, 2.08165e-12)
 layout_mode = 2
 theme = ExtResource("1_coyy4")
@@ -94,15 +105,22 @@ fit_content = true
 scroll_active = false
 autowrap_mode = 0
 
-[node name="CreditsScreen" type="CanvasLayer" parent="."]
+[node name="LoadGame" type="Control" parent="CanvasLayer"]
 unique_name_in_owner = true
 visible = false
-script = ExtResource("4_eaira")
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="Focus First" type="Node" parent="CreditsScreen"]
+[node name="FocusFirst" type="Node" parent="CanvasLayer/LoadGame" node_paths=PackedStringArray("controls_in_sequence")]
 script = ExtResource("1_ta2ne")
+controls_in_sequence = [NodePath("../../MainMenu/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/LoadGameButton"), NodePath("../../MainMenu/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/NewGameButton"), NodePath("../../MainMenu/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/CreditsButton")]
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CreditsScreen"]
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/LoadGame"]
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -110,22 +128,119 @@ grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CreditsScreen/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/LoadGame/HBoxContainer"]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CreditsScreen/HBoxContainer/VBoxContainer"]
+[node name="Screen Title Container" type="CenterContainer" parent="CanvasLayer/LoadGame/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(2.08165e-12, 300)
+layout_mode = 2
+
+[node name="Screen Title" type="RichTextLabel" parent="CanvasLayer/LoadGame/HBoxContainer/VBoxContainer/Screen Title Container"]
+layout_mode = 2
+theme = ExtResource("1_coyy4")
+theme_override_font_sizes/normal_font_size = 80
+bbcode_enabled = true
+text = "[center]Load a game"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/LoadGame/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CreditsScreen/HBoxContainer/VBoxContainer/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/LoadGame/HBoxContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(500, 2.08165e-12)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 40
+alignment = 1
+
+[node name="LoadGameButton" type="Button" parent="CanvasLayer/LoadGame/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_coyy4")
+theme_override_font_sizes/font_size = 48
+text = "Game 1"
+
+[node name="NewGame" type="Control" parent="CanvasLayer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/NewGame"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/NewGame/HBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/NewGame/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/NewGame/HBoxContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(1200, 2.08165e-12)
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 40
 alignment = 1
 
-[node name="RichTextLabel" type="RichTextLabel" parent="CreditsScreen/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/NewGame/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_coyy4")
+theme_override_font_sizes/normal_font_size = 36
+bbcode_enabled = true
+text = "[center]A new game is about to start..."
+fit_content = true
+scroll_active = false
+
+[node name="Credits" type="Control" parent="CanvasLayer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Credits"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Credits/HBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Credits/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Credits/HBoxContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(1200, 2.08165e-12)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 40
+alignment = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/Credits/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme = ExtResource("1_coyy4")
 theme_override_font_sizes/normal_font_size = 36
@@ -134,7 +249,50 @@ text = "[center]Copyright 2023 Marinho Brandao	"
 fit_content = true
 scroll_active = false
 
-[connection signal="pressed" from="MainMenuScreen/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/LoadGameButton" to="MainMenuScreen" method="_on_load_game_button_pressed"]
-[connection signal="pressed" from="MainMenuScreen/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/NewGameButton" to="MainMenuScreen" method="_on_new_game_button_pressed"]
-[connection signal="pressed" from="MainMenuScreen/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/CreditsButton" to="MainMenuScreen" method="_on_credits_button_pressed"]
-[connection signal="pressed" from="MainMenuScreen/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/QuitButton" to="MainMenuScreen" method="_on_quit_button_pressed"]
+[node name="Transitions" type="Node" parent="."]
+
+[node name="TransitionMainMenu" type="Node" parent="Transitions"]
+unique_name_in_owner = true
+script = ExtResource("5_i743p")
+auto_start = 1
+animation_enter = 4
+animation_leave = 4
+layout = NodePath("../../CanvasLayer/MainMenu")
+controls = Array[NodePath]([NodePath("../../CanvasLayer/MainMenu/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/LoadGameButton"), NodePath("../../CanvasLayer/MainMenu/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/NewGameButton"), NodePath("../../CanvasLayer/MainMenu/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/CreditsButton"), NodePath("../../CanvasLayer/MainMenu/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/QuitButton")])
+group = NodePath("../../CanvasLayer/MainMenu/HBoxContainer")
+
+[node name="TransitionNewGame" type="Node" parent="Transitions"]
+unique_name_in_owner = true
+script = ExtResource("5_i743p")
+auto_start = 0
+animation_enter = 4
+animation_leave = 4
+layout = NodePath("../../CanvasLayer/NewGame")
+group = NodePath("../../CanvasLayer/NewGame/HBoxContainer")
+
+[node name="TransitionLoadGame" type="Node" parent="Transitions"]
+unique_name_in_owner = true
+script = ExtResource("5_i743p")
+auto_start = 0
+animation_enter = 4
+animation_leave = 4
+layout = NodePath("../../CanvasLayer/LoadGame")
+controls = Array[NodePath]([NodePath("../../CanvasLayer/LoadGame/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/LoadGameButton")])
+group = NodePath("../../CanvasLayer/LoadGame/HBoxContainer")
+
+[node name="TransitionCredits" type="Node" parent="Transitions"]
+unique_name_in_owner = true
+script = ExtResource("5_i743p")
+auto_start = 0
+layout = NodePath("../../CanvasLayer/Credits")
+group = NodePath("../../CanvasLayer/Credits/HBoxContainer")
+
+[node name="EscapeToReturn" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("4_eaira")
+
+[connection signal="pressed" from="CanvasLayer/MainMenu/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/LoadGameButton" to="CanvasLayer/MainMenu" method="_on_load_game_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/MainMenu/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/NewGameButton" to="CanvasLayer/MainMenu" method="_on_new_game_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/MainMenu/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/CreditsButton" to="CanvasLayer/MainMenu" method="_on_credits_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/MainMenu/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/QuitButton" to="CanvasLayer/MainMenu" method="_on_quit_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/LoadGame/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/LoadGameButton" to="CanvasLayer/MainMenu" method="_on_load_game_button_pressed"]
