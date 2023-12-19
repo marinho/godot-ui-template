@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://kel11cbeatq4"]
+[gd_scene load_steps=8 format=3 uid="uid://kel11cbeatq4"]
 
 [ext_resource type="Theme" uid="uid://d1tl4ouhddgg7" path="res://themes/base_theme.tres" id="1_coyy4"]
 [ext_resource type="Script" path="res://scripts/focus_first.gd" id="1_ta2ne"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://scripts/escape_to_return.gd" id="4_eaira"]
 [ext_resource type="Script" path="res://scripts/auto_scrolling.gd" id="4_ko2qo"]
 [ext_resource type="Script" path="res://addons/simple-gui-transitions/transition.gd" id="5_i743p"]
+[ext_resource type="Script" path="res://scripts/game_persistence.gd" id="7_qk3q3"]
 
 [node name="Entry Scene" type="Node2D"]
 
@@ -13,6 +14,7 @@
 
 [node name="MainMenu" type="Control" parent="CanvasLayer"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -35,6 +37,7 @@ grow_vertical = 2
 alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MainMenu/HBoxContainer"]
+custom_minimum_size = Vector2(1200, 0)
 layout_mode = 2
 
 [node name="Game Title Container" type="CenterContainer" parent="CanvasLayer/MainMenu/HBoxContainer/VBoxContainer"]
@@ -60,7 +63,7 @@ alignment = 1
 custom_minimum_size = Vector2(500, 2.08165e-12)
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_constants/separation = 40
+theme_override_constants/separation = 10
 alignment = 1
 
 [node name="LoadGameButton" type="Button" parent="CanvasLayer/MainMenu/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
@@ -99,14 +102,13 @@ layout_mode = 2
 theme = ExtResource("1_coyy4")
 theme_override_font_sizes/normal_font_size = 50
 bbcode_enabled = true
-text = "[center]Copyright 2023 Marinho Brandao"
+text = "[center]Copyright 2023 ©️ Marinho Brandao"
 fit_content = true
 scroll_active = false
 autowrap_mode = 0
 
 [node name="LoadGame" type="Control" parent="CanvasLayer"]
 unique_name_in_owner = true
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -116,7 +118,7 @@ grow_vertical = 2
 
 [node name="FocusFirst" type="Node" parent="CanvasLayer/LoadGame" node_paths=PackedStringArray("controls_in_sequence")]
 script = ExtResource("1_ta2ne")
-controls_in_sequence = [NodePath("../../MainMenu/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/LoadGameButton"), NodePath("../../MainMenu/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/NewGameButton"), NodePath("../../MainMenu/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/CreditsButton")]
+controls_in_sequence = [NodePath("../HBoxContainer/VBoxContainer/VBoxContainer/ItemList")]
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/LoadGame"]
 layout_mode = 1
@@ -128,6 +130,7 @@ grow_vertical = 2
 alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/LoadGame/HBoxContainer"]
+custom_minimum_size = Vector2(1200, 0)
 layout_mode = 2
 
 [node name="Screen Title Container" type="CenterContainer" parent="CanvasLayer/LoadGame/HBoxContainer/VBoxContainer"]
@@ -144,23 +147,22 @@ fit_content = true
 scroll_active = false
 autowrap_mode = 0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/LoadGame/HBoxContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-alignment = 1
-
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/LoadGame/HBoxContainer/VBoxContainer/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/LoadGame/HBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(500, 2.08165e-12)
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 40
 alignment = 1
 
-[node name="LoadGameButton" type="Button" parent="CanvasLayer/LoadGame/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+[node name="ItemList" type="ItemList" parent="CanvasLayer/LoadGame/HBoxContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
-theme = ExtResource("1_coyy4")
+theme_override_constants/v_separation = 10
 theme_override_font_sizes/font_size = 48
-text = "Game 1"
+auto_height = true
+item_count = 3
+item_0/text = "Game 1"
+item_1/text = "Game 2"
+item_2/text = "Game 3"
 
 [node name="NewGame" type="Control" parent="CanvasLayer"]
 unique_name_in_owner = true
@@ -302,7 +304,7 @@ script = ExtResource("5_i743p")
 animation_enter = 4
 animation_leave = 4
 layout = NodePath("../../CanvasLayer/LoadGame")
-controls = Array[NodePath]([NodePath("../../CanvasLayer/LoadGame/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/LoadGameButton")])
+controls = Array[NodePath]([NodePath("")])
 group = NodePath("../../CanvasLayer/LoadGame/HBoxContainer")
 
 [node name="TransitionCredits" type="Node" parent="Transitions"]
@@ -315,8 +317,10 @@ group = NodePath("../../CanvasLayer/Credits/HBoxContainer2")
 unique_name_in_owner = true
 script = ExtResource("4_eaira")
 
+[node name="GamePersistence" type="Node" parent="."]
+script = ExtResource("7_qk3q3")
+
 [connection signal="pressed" from="CanvasLayer/MainMenu/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/LoadGameButton" to="CanvasLayer/MainMenu" method="_on_load_game_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/MainMenu/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/NewGameButton" to="CanvasLayer/MainMenu" method="_on_new_game_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/MainMenu/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/CreditsButton" to="CanvasLayer/MainMenu" method="_on_credits_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/MainMenu/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/QuitButton" to="CanvasLayer/MainMenu" method="_on_quit_button_pressed"]
-[connection signal="pressed" from="CanvasLayer/LoadGame/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/LoadGameButton" to="CanvasLayer/MainMenu" method="_on_load_game_button_pressed"]
