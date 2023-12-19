@@ -6,6 +6,7 @@ extends Node
 @onready var new_game_button = %NewGameButton
 @onready var load_game_button = %LoadGameButton
 @onready var escape_to_return = %EscapeToReturn
+@onready var credits_scrollable = %CreditsScrollable
 
 
 # Called when the node enters the scene tree for the first time.
@@ -30,9 +31,11 @@ func _on_new_game_button_pressed():
 
 func _on_credits_button_pressed():
 	escape_to_return.can_return = false
+	credits_scrollable.reset_scrolling()
 	GuiTransitions.go_to("Credits")
 	await GuiTransitions.show_completed
 	escape_to_return.can_return = true
+	credits_scrollable.start_scrolling()
 
 
 func _on_quit_button_pressed():
