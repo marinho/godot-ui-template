@@ -2,6 +2,7 @@ extends Node
 
 @export var can_start_new_game: bool = true
 @export var can_load_game: bool
+@export_node_path var first_scene_new_game;
 
 @onready var new_game_button = %NewGameButton
 @onready var load_game_button = %LoadGameButton

@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://kel11cbeatq4"]
+[gd_scene load_steps=7 format=3 uid="uid://kel11cbeatq4"]
 
 [ext_resource type="Theme" uid="uid://d1tl4ouhddgg7" path="res://themes/base_theme.tres" id="1_coyy4"]
 [ext_resource type="Script" path="res://scripts/focus_first.gd" id="1_ta2ne"]
@@ -6,7 +6,6 @@
 [ext_resource type="Script" path="res://scripts/escape_to_return.gd" id="4_eaira"]
 [ext_resource type="Script" path="res://scripts/auto_scrolling.gd" id="4_ko2qo"]
 [ext_resource type="Script" path="res://addons/simple-gui-transitions/transition.gd" id="5_i743p"]
-[ext_resource type="Script" path="res://scripts/game_persistence.gd" id="7_qk3q3"]
 
 [node name="Entry Scene" type="Node2D"]
 
@@ -316,9 +315,6 @@ group = NodePath("../../CanvasLayer/Credits/HBoxContainer2")
 [node name="EscapeToReturn" type="Node" parent="."]
 unique_name_in_owner = true
 script = ExtResource("4_eaira")
-
-[node name="GamePersistence" type="Node" parent="."]
-script = ExtResource("7_qk3q3")
 
 [connection signal="pressed" from="CanvasLayer/MainMenu/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/LoadGameButton" to="CanvasLayer/MainMenu" method="_on_load_game_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/MainMenu/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/NewGameButton" to="CanvasLayer/MainMenu" method="_on_new_game_button_pressed"]
