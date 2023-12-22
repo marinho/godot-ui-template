@@ -76,7 +76,7 @@ script = ExtResource("1_hwcn4")
 auto_saving = true
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 5.0
+wait_time = 30.0
 autostart = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]

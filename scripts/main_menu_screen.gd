@@ -9,7 +9,7 @@ extends Node
 @onready var load_game_button = %LoadGameButton
 @onready var escape_to_return = %EscapeToReturn
 @onready var credits_scrollable = %CreditsScrollable
-@onready var load_game_screen = %LoadGame
+@onready var main_menu_screen = %MainMenu
 @onready var load_game_list = %LoadGameList
 
 @onready var game_manager = get_node("/root/GameManager")
@@ -20,6 +20,8 @@ extends Node
 func _ready():
 	new_game_button.visible = can_start_new_game
 	load_game_button.visible = can_load_game()
+	var focus_first = main_menu_screen.get_node("FocusFirst")
+	focus_first.focus_on_first()
 
 
 func _on_load_game_button_pressed():

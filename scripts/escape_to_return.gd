@@ -5,6 +5,7 @@ extends Node
 @export var can_return = true
 @onready var credits_scrollable = %CreditsScrollable
 
+signal after_return
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -22,6 +23,7 @@ func _process(_delta):
 		GuiTransitions.go_to(layout_to_return_to)
 		await GuiTransitions.show_completed
 		can_return = true
+		after_return.emit()
 	
 func _on_show_completed():
 	can_return = true

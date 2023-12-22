@@ -319,3 +319,4 @@ script = ExtResource("4_eaira")
 [connection signal="pressed" from="CanvasLayer/MainMenu/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/NewGameButton" to="CanvasLayer/MainMenu" method="_on_new_game_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/MainMenu/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/CreditsButton" to="CanvasLayer/MainMenu" method="_on_credits_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/MainMenu/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/QuitButton" to="CanvasLayer/MainMenu" method="_on_quit_button_pressed"]
+[connection signal="after_return" from="EscapeToReturn" to="CanvasLayer/MainMenu/FocusFirst" method="focus_on_first"]
