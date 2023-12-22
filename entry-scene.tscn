@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://kel11cbeatq4"]
+[gd_scene load_steps=8 format=3 uid="uid://kel11cbeatq4"]
 
 [ext_resource type="Theme" uid="uid://d1tl4ouhddgg7" path="res://themes/base_theme.tres" id="1_coyy4"]
 [ext_resource type="Script" path="res://scripts/focus_first.gd" id="1_ta2ne"]
 [ext_resource type="Script" path="res://scripts/main_menu_screen.gd" id="1_wuwwh"]
+[ext_resource type="PackedScene" uid="uid://c8tr356pyli77" path="res://resources/load_game_item_button.tscn" id="2_ljwiw"]
 [ext_resource type="Script" path="res://scripts/escape_to_return.gd" id="4_eaira"]
 [ext_resource type="Script" path="res://scripts/auto_scrolling.gd" id="4_ko2qo"]
 [ext_resource type="Script" path="res://addons/simple-gui-transitions/transition.gd" id="5_i743p"]
@@ -20,6 +21,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_wuwwh")
+load_game_item_button = ExtResource("2_ljwiw")
+first_scene_new_game = "res://scenes/level_1.tscn"
 
 [node name="FocusFirst" type="Node" parent="CanvasLayer/MainMenu" node_paths=PackedStringArray("controls_in_sequence")]
 script = ExtResource("1_ta2ne")
@@ -117,7 +120,7 @@ grow_vertical = 2
 
 [node name="FocusFirst" type="Node" parent="CanvasLayer/LoadGame" node_paths=PackedStringArray("controls_in_sequence")]
 script = ExtResource("1_ta2ne")
-controls_in_sequence = [NodePath("../HBoxContainer/VBoxContainer/VBoxContainer/ItemList")]
+controls_in_sequence = [NodePath("../HBoxContainer/VBoxContainer/HBoxContainer/LoadGameList")]
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/LoadGame"]
 layout_mode = 1
@@ -146,22 +149,18 @@ fit_content = true
 scroll_active = false
 autowrap_mode = 0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/LoadGame/HBoxContainer/VBoxContainer"]
-custom_minimum_size = Vector2(500, 2.08165e-12)
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/LoadGame/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="LoadGameList" type="VBoxContainer" parent="CanvasLayer/LoadGame/HBoxContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(700, 2.08165e-12)
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 40
 alignment = 1
-
-[node name="ItemList" type="ItemList" parent="CanvasLayer/LoadGame/HBoxContainer/VBoxContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/v_separation = 10
-theme_override_font_sizes/font_size = 48
-auto_height = true
-item_count = 3
-item_0/text = "Game 1"
-item_1/text = "Game 2"
-item_2/text = "Game 3"
 
 [node name="NewGame" type="Control" parent="CanvasLayer"]
 unique_name_in_owner = true

@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://nblwxr2136j1"]
+
+[ext_resource type="Script" path="res://autoloads/game_saver.gd" id="1_hwcn4"]
+
+[node name="GameSaver" type="Node"]
+script = ExtResource("1_hwcn4")
+auto_saving = true
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_auto_saving_timer_timeout"]
