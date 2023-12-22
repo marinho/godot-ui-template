@@ -1,7 +1,7 @@
-[gd_scene load_steps=13 format=3 uid="uid://cibi0s6myfe4m"]
+[gd_scene load_steps=13 format=3 uid="uid://bpub6uksdviq2"]
 
-[ext_resource type="PackedScene" uid="uid://dxdc0bvatlt14" path="res://scenes/player.tscn" id="1_553wf"]
-[ext_resource type="PackedScene" uid="uid://dmtjkpdujmd6d" path="res://scenes/teleport.tscn" id="2_gwcce"]
+[ext_resource type="PackedScene" uid="uid://dxdc0bvatlt14" path="res://scenes/player.tscn" id="1_072wj"]
+[ext_resource type="PackedScene" uid="uid://dmtjkpdujmd6d" path="res://scenes/teleport.tscn" id="2_ooyam"]
 
 [sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_rqyl1"]
 ground_color = Color(0.678431, 0.819608, 0.776471, 1)
@@ -31,7 +31,7 @@ size = Vector2(20, 20)
 [sub_resource type="BoxShape3D" id="BoxShape3D_11noe"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o1ctb"]
-albedo_color = Color(0.890196, 0, 0.207843, 1)
+albedo_color = Color(0, 1, 0.207843, 1)
 rim_enabled = true
 
 [sub_resource type="BoxMesh" id="BoxMesh_mwjw2"]
@@ -40,7 +40,7 @@ material = SubResource("StandardMaterial3D_o1ctb")
 [sub_resource type="BoxShape3D" id="BoxShape3D_mshgr"]
 size = Vector3(31, 1, 1)
 
-[node name="Level1" type="Node3D"]
+[node name="Level2" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.3259, 0, -0.0465146)
 
 [node name="Camera3D" type="Camera3D" parent="."]
@@ -49,7 +49,7 @@ environment = SubResource("Environment_ne7so")
 current = true
 fov = 20.0
 
-[node name="Player" parent="." instance=ExtResource("1_553wf")]
+[node name="Player" parent="." instance=ExtResource("1_072wj")]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7, 0)
@@ -70,7 +70,7 @@ skeleton = NodePath("../../..")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0.5, 4)
 
 [node name="Box 1" type="CollisionShape3D" parent="Static Objects/Level Number"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -1)
 shape = SubResource("BoxShape3D_11noe")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Static Objects/Level Number/Box 1"]
@@ -84,7 +84,7 @@ shape = SubResource("BoxShape3D_11noe")
 mesh = SubResource("BoxMesh_mwjw2")
 
 [node name="Box 6" type="CollisionShape3D" parent="Static Objects/Level Number"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -2)
 shape = SubResource("BoxShape3D_11noe")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Static Objects/Level Number/Box 6"]
@@ -111,7 +111,7 @@ shape = SubResource("BoxShape3D_11noe")
 mesh = SubResource("BoxMesh_mwjw2")
 
 [node name="Box 3" type="CollisionShape3D" parent="Static Objects/Level Number"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 1)
 shape = SubResource("BoxShape3D_11noe")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Static Objects/Level Number/Box 3"]
@@ -140,5 +140,5 @@ shape = SubResource("BoxShape3D_mshgr")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 2.08165e-12, 10)
 shape = SubResource("BoxShape3D_mshgr")
 
-[node name="Teleport" parent="." instance=ExtResource("2_gwcce")]
-target_scene = "res://scenes/level_2.tscn"
+[node name="Teleport" parent="." instance=ExtResource("2_ooyam")]
+target_scene = "res://scenes/level_1.tscn"

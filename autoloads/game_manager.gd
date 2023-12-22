@@ -17,3 +17,8 @@ func _process(delta):
 func set_current_game(new_game):
 	current_game = new_game
 	
+
+func load_scene(scene_file_path):
+	# var next_scene = preload(scene_file_path)
+	get_tree().change_scene_to_file(scene_file_path)
+	

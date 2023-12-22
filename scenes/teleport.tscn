@@ -1,0 +1,61 @@
+[gd_scene load_steps=12 format=3 uid="uid://dmtjkpdujmd6d"]
+
+[ext_resource type="Script" path="res://scenes/teleport.gd" id="1_qchxc"]
+
+[sub_resource type="Curve" id="Curve_p2tbc"]
+_data = [Vector2(0, 0.628), 0.0, 0.0, 0, 0, Vector2(1, 0.792), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_oo3lk"]
+curve = SubResource("Curve_p2tbc")
+
+[sub_resource type="Curve" id="Curve_ugu30"]
+_data = [Vector2(0, 0.976), 0.0, 0.0, 0, 0, Vector2(0.5, 0.808), 0.0, 0.0, 0, 0, Vector2(1, 0.984), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_h66xu"]
+curve = SubResource("Curve_ugu30")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_1eve5"]
+gravity = Vector3(2.08165e-12, 2.08165e-12, 2.08165e-12)
+scale_curve = SubResource("CurveTexture_h66xu")
+alpha_curve = SubResource("CurveTexture_oo3lk")
+hue_variation_min = -1.0
+hue_variation_max = 1.0
+
+[sub_resource type="Gradient" id="Gradient_8wkhk"]
+offsets = PackedFloat32Array(0.385965, 0.403509, 0.710526)
+colors = PackedColorArray(1, 1, 1, 0.823529, 1, 1, 1, 0.554054, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_s4k1g"]
+gradient = SubResource("Gradient_8wkhk")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bvg07"]
+transparency = 1
+vertex_color_use_as_albedo = true
+albedo_texture = SubResource("GradientTexture2D_s4k1g")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_kwol2"]
+material = SubResource("StandardMaterial3D_bvg07")
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_103bs"]
+radius = 0.6
+
+[node name="Teleport" type="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 4)
+collision_mask = 2
+script = ExtResource("1_qchxc")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 0.01, 2.08165e-12)
+amount = 1
+fixed_fps = 60
+process_material = SubResource("ParticleProcessMaterial_1eve5")
+draw_pass_1 = SubResource("PlaneMesh_kwol2")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_103bs")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

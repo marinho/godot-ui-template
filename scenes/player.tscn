@@ -1,0 +1,34 @@
+[gd_scene load_steps=5 format=3 uid="uid://dxdc0bvatlt14"]
+
+[ext_resource type="Script" path="res://scenes/player.gd" id="1_epsw5"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_fwaw4"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ggeda"]
+albedo_color = Color(0.537255, 1, 1, 1)
+rim_enabled = true
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_qnwg7"]
+material = SubResource("StandardMaterial3D_ggeda")
+
+[node name="Player" type="CharacterBody3D" groups=["Player"]]
+collision_layer = 2
+script = ExtResource("1_epsw5")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 1, 2.08165e-12)
+light_color = Color(0.470588, 0.470588, 0.470588, 1)
+light_energy = 5.0
+omni_range = 20.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 1, 2.08165e-12)
+shape = SubResource("CapsuleShape3D_fwaw4")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 1, 2.08165e-12)
+mesh = SubResource("CapsuleMesh_qnwg7")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+light_energy = 10.0
