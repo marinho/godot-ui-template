@@ -2,15 +2,11 @@ extends Node
 
 @export var auto_saving = false
 
-@onready var player: CharacterBody3D = get_tree().get_first_node_in_group("Player")
 @onready var game_manager = get_node("/root/GameManager")
 @onready var game_persistence = get_node("/root/GamePersistence")
 
-signal just_saved
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass
+signal before_saved
+signal after_saved
 
 
 func _auto_saving_timer_timeout():
@@ -20,7 +16,11 @@ func _auto_saving_timer_timeout():
 
 
 func save_player_state():
+	before_saved.emit()
 	print("Saving game...")
+
+	var player = get_tree().get_first_node_in_group("Player") as CharacterBody3D
+
 	var partial_values = {
 		"datetime": Time.get_datetime_dict_from_system(),
 		"completed_percent": 0.0,
@@ -36,11 +36,12 @@ func save_player_state():
 	if player:
 		partial_values["location"]["x"] = player.global_position.x
 		partial_values["location"]["y"] = player.global_position.y
+		partial_values["location"]["z"] = player.global_position.z
 	
 	game_persistence.update_saved_game(
 		game_manager.current_game_id,
 		partial_values,
 	)
 	
-	just_saved.emit()
+	after_saved.emit()
 	

@@ -12,6 +12,8 @@ config_version=5
 
 config/name="godot-ui-template"
 run/main_scene="res://entry-scene.tscn"
+config/use_custom_user_dir=true
+config/custom_user_dir_name="godot-ui-template"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
 

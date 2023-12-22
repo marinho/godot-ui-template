@@ -50,7 +50,8 @@ func save_new_game(first_scene_path):
 		"location": {
 			"scene": first_scene_path,
 			"x": -1.0, # default spawn point
-			"y": -1.0
+			"y": -1.0,
+			"z": -1.0,
 		},
 		"inventory": {}, # used to save items in the player's inventory, which can be integer or boolean values
 		"saved_states": {}, # used to save state of objects in the scene, such as chests, levers, etc.
@@ -78,5 +79,21 @@ func load_game(game_id: int):
 func update_saved_game(game_id: int, partial_values):
 	var game_json = read_file_as_json()
 	var saved_game = load_game(game_id)
-	# TODO merge partial_values with existing dictionary and save it
+	var updated_game = overwrite_dict(saved_game, partial_values)
+
+	game_json["saved_games"] = game_json["saved_games"].map(func(x): return updated_game if x["id"] == game_id else x)
 	
+	save_json_to_file(game_json)
+	
+
+func overwrite_dict(original_dict, new_dict):
+	var dict_to_overwrite = original_dict.duplicate()
+	for key in new_dict.keys():
+		if dict_to_overwrite.has(key):
+			if typeof(dict_to_overwrite[key]) == TYPE_DICTIONARY:
+				dict_to_overwrite[key] = overwrite_dict(dict_to_overwrite[key], new_dict[key])
+			else:
+				dict_to_overwrite[key] = new_dict[key]
+		else:
+			dict_to_overwrite[key] = new_dict[key]
+	return dict_to_overwrite

@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://dxdc0bvatlt14"]
+[gd_scene load_steps=6 format=3 uid="uid://dxdc0bvatlt14"]
 
 [ext_resource type="Script" path="res://scenes/player.gd" id="1_epsw5"]
+[ext_resource type="Script" path="res://scenes/player_positioner.gd" id="2_2m84l"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_fwaw4"]
 
@@ -32,3 +33,6 @@ mesh = SubResource("CapsuleMesh_qnwg7")
 [node name="SpotLight3D" type="SpotLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 light_energy = 10.0
+
+[node name="PlayerPositioner" type="Node" parent="."]
+script = ExtResource("2_2m84l")

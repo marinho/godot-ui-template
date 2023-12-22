@@ -1,14 +1,12 @@
 extends Node
 
-@export var current_game_id : int = 0
+@export var current_game_id : int = -1
 @export var current_scene_path : String
-
-var current_game = null
 
 
 func set_current_game(new_game):
-	current_game = new_game
-	
+	current_game_id = new_game["id"]
+
 
 func load_scene(scene_file_path):
 	current_scene_path = scene_file_path
