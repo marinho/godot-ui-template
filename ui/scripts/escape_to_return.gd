@@ -3,8 +3,8 @@ extends Node
 @export var layout_to_return_to = "MainMenu"
 @export var input_name = "ui_cancel"
 @export var can_return = true
-@onready var credits_scrollable = %CreditsScrollable
 
+signal before_return
 signal after_return
 
 # Called when the node enters the scene tree for the first time.
@@ -19,7 +19,7 @@ func _process(_delta):
 
 	if Input.is_action_just_pressed("ui_cancel"):
 		can_return = false
-		credits_scrollable.stop_scrolling()
+		before_return.emit()
 		GuiTransitions.go_to(layout_to_return_to)
 		await GuiTransitions.show_completed
 		can_return = true

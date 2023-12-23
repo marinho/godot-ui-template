@@ -18,6 +18,8 @@ func _ready():
 	new_game_button.visible = can_start_new_game
 	load_game_button.visible = can_load_game()
 	var focus_first = main_menu_screen.get_node("FocusFirst")
+	GuiTransitions.go_to("MainMenu")
+	await GuiTransitions.show_completed
 	focus_first.focus_on_first()
 
 

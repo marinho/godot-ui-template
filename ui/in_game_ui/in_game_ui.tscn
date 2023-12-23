@@ -1,21 +1,34 @@
-[gd_scene load_steps=3 format=3 uid="uid://c0oax286unqgq"]
+[gd_scene load_steps=5 format=3 uid="uid://c0oax286unqgq"]
 
 [ext_resource type="Theme" uid="uid://d1tl4ouhddgg7" path="res://ui/themes/base_theme.tres" id="1_ghw0i"]
 [ext_resource type="Script" path="res://ui/in_game_ui/in_game_ui.gd" id="1_mahv3"]
+[ext_resource type="Script" path="res://addons/simple-gui-transitions/transition.gd" id="3_rxbxl"]
+[ext_resource type="Script" path="res://ui/scripts/focus_first.gd" id="3_ya1jk"]
 
 [node name="InGameUi" type="CanvasLayer"]
+process_mode = 3
 script = ExtResource("1_mahv3")
 
-[node name="HealthBar" type="MarginContainer" parent="."]
-offset_right = 520.0
-offset_bottom = 108.0
+[node name="ActiveGame" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 2
+
+[node name="HealthBar" type="MarginContainer" parent="ActiveGame"]
+layout_mode = 0
+offset_right = 520.0
+offset_bottom = 117.0
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 30
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 30
 
-[node name="HealthBarRichText" type="RichTextLabel" parent="HealthBar"]
+[node name="HealthBarRichText" type="RichTextLabel" parent="ActiveGame/HealthBar"]
 clip_contents = false
 layout_mode = 2
 theme = ExtResource("1_ghw0i")
@@ -24,20 +37,20 @@ bbcode_enabled = true
 text = "❤️❤️🤎"
 fit_content = true
 
-[node name="ScoreBar" type="MarginContainer" parent="."]
+[node name="ScoreBar" type="MarginContainer" parent="ActiveGame"]
+layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
 offset_left = -520.0
-offset_bottom = 108.0
+offset_bottom = 130.0
 grow_horizontal = 0
-mouse_filter = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 30
 theme_override_constants/margin_bottom = 30
 
-[node name="ScoreRichText" type="RichTextLabel" parent="ScoreBar"]
+[node name="ScoreRichText" type="RichTextLabel" parent="ActiveGame/ScoreBar"]
 clip_contents = false
 layout_mode = 2
 theme = ExtResource("1_ghw0i")
@@ -45,3 +58,71 @@ theme_override_font_sizes/normal_font_size = 60
 bbcode_enabled = true
 text = "[right]000123"
 fit_content = true
+
+[node name="PauseMenu" type="Control" parent="."]
+unique_name_in_owner = true
+process_mode = 2
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="FocusFirst" type="Node" parent="PauseMenu" node_paths=PackedStringArray("controls_in_sequence")]
+script = ExtResource("3_ya1jk")
+controls_in_sequence = [NodePath("../HBoxContainer/VBoxContainer/ResumeButton"), NodePath("../HBoxContainer/VBoxContainer/QuitButton")]
+
+[node name="Background Panel" type="Panel" parent="PauseMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PauseMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PauseMenu/HBoxContainer"]
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="ResumeButton" type="Button" parent="PauseMenu/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_ghw0i")
+theme_override_font_sizes/font_size = 48
+text = "Resume Game"
+
+[node name="QuitButton" type="Button" parent="PauseMenu/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_ghw0i")
+theme_override_font_sizes/font_size = 48
+text = "Quit Game"
+
+[node name="Transitions" type="Node" parent="."]
+process_mode = 3
+
+[node name="TransitionToActiveGame" type="Node" parent="Transitions"]
+script = ExtResource("3_rxbxl")
+auto_start = 0
+layout = NodePath("../../ActiveGame")
+controls = Array[NodePath]([NodePath("../../ActiveGame/HealthBar"), NodePath("../../ActiveGame/ScoreBar")])
+
+[node name="TransitionToPauseMenu" type="Node" parent="Transitions"]
+script = ExtResource("3_rxbxl")
+auto_start = 0
+layout = NodePath("../../PauseMenu")
+group = NodePath("../../PauseMenu/HBoxContainer")
+
+[connection signal="pressed" from="PauseMenu/HBoxContainer/VBoxContainer/ResumeButton" to="." method="unpause"]
+[connection signal="pressed" from="PauseMenu/HBoxContainer/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]

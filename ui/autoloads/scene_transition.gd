@@ -1,5 +1,7 @@
 extends CanvasLayer
 
+signal after_scene_change
+
 # source: https://www.youtube.com/watch?v=yZQStB6nHuI
 
 func change_scene(target: String) -> void:
@@ -11,4 +13,6 @@ func change_scene(target: String) -> void:
 	
 	$AnimationPlayer.play_backwards("dissolve")
 	FreezeManager.set_freezed(false)
+
+	after_scene_change.emit()
 	

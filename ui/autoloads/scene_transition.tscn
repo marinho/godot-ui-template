@@ -81,13 +81,12 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-color = Color(0.223529, 0.337255, 0.607843, 1)
+color = Color(0.298039, 0.298039, 0.298039, 1)
 
 [node name="HBoxContainer" type="HBoxContainer" parent="dissolve_rect"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+layout_mode = 2
+offset_right = 2304.0
+offset_bottom = 1296.0
 grow_horizontal = 2
 grow_vertical = 2
 alignment = 1

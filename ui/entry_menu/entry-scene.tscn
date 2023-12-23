@@ -235,7 +235,6 @@ custom_minimum_size = Vector2(1200, 0)
 layout_mode = 2
 theme = ExtResource("1_coyy4")
 script = ExtResource("4_ko2qo")
-is_active = null
 
 [node name="CreditsText" type="RichTextLabel" parent="CanvasLayer/Credits/HBoxContainer2/MarginContainer/CreditsScrollable"]
 custom_minimum_size = Vector2(1200, 0)
