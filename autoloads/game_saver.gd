@@ -2,16 +2,13 @@ extends Node
 
 @export var auto_saving = false
 
-@onready var game_manager = get_node("/root/GameManager")
-@onready var game_persistence = get_node("/root/GamePersistence")
-
 signal before_saved
 signal after_saved
 
 
 func _auto_saving_timer_timeout():
 	# The frequence for timeout calls is set in the Timer node of game_saver.tscn
-	if auto_saving and game_manager.current_game_id >= 0:
+	if auto_saving and GameManager.current_game_id >= 0:
 		save_player_state()
 
 
@@ -30,7 +27,7 @@ func save_player_state():
 			"max_health": 100,
 		},
 		"location": {
-			"scene": game_manager.current_scene_path,
+			"scene": GameManager.current_scene_path,
 		},
 	}
 	if player:
@@ -38,8 +35,8 @@ func save_player_state():
 		partial_values["location"]["y"] = player.global_position.y
 		partial_values["location"]["z"] = player.global_position.z
 	
-	game_persistence.update_saved_game(
-		game_manager.current_game_id,
+	GamePersistence.update_saved_game(
+		GameManager.current_game_id,
 		partial_values,
 	)
 	

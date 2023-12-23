@@ -12,9 +12,6 @@ extends Node
 @onready var main_menu_screen = %MainMenu
 @onready var load_game_list = %LoadGameList
 
-@onready var game_manager = get_node("/root/GameManager")
-@onready var game_persistence = get_node("/root/GamePersistence")
-
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -39,9 +36,9 @@ func _on_new_game_button_pressed():
 	GuiTransitions.go_to("NewGame")
 	await GuiTransitions.show_completed
 
-	var new_game = game_persistence.save_new_game(first_scene_new_game)
-	game_manager.set_current_game(new_game)
-	game_manager.load_scene(first_scene_new_game)
+	var new_game = GamePersistence.save_new_game(first_scene_new_game)
+	GameManager.set_current_game(new_game)
+	GameManager.load_scene(first_scene_new_game)
 
 
 func _on_credits_button_pressed():
@@ -60,7 +57,7 @@ func _on_quit_button_pressed():
 
 
 func can_load_game():
-	var saved_games = game_persistence.get_saved_games()
+	var saved_games = GamePersistence.get_saved_games()
 	return len(saved_games) > 0
 
 
@@ -69,7 +66,7 @@ func update_load_game_list():
 		load_game_list.remove_child(button)
 		button.queue_free()
 	
-	var saved_games = game_persistence.get_saved_games()
+	var saved_games = GamePersistence.get_saved_games()
 	
 	if len(saved_games) == 0:
 		return
@@ -85,6 +82,6 @@ func update_load_game_list():
 
 
 func load_game_from_button(game):
-	game_manager.set_current_game(game)
-	game_manager.load_scene(game["location"]["scene"])
+	GameManager.set_current_game(game)
+	GameManager.load_scene(game["location"]["scene"])
 	# TODO: player position

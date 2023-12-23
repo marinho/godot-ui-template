@@ -23,6 +23,8 @@ GuiTransitions="*res://addons/simple-gui-transitions/singleton.gd"
 GameManager="*res://autoloads/game-manager.tscn"
 GamePersistence="*res://autoloads/game_persistence.tscn"
 GameSaver="*res://autoloads/game_saver.tscn"
+SceneTransition="*res://autoloads/scene_transition.tscn"
+FreezeManager="*res://autoloads/freeze_manager.gd"
 
 [display]
 
