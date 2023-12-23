@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://dlym47ojq04o7"]
+
+[ext_resource type="Script" path="res://ui/audio/ui_audio_effects_attacher.gd" id="1_mk1hd"]
+[ext_resource type="Script" path="res://ui/audio/ui_audio_sound_player.gd" id="2_fu2i2"]
+[ext_resource type="AudioStream" uid="uid://dpqtgopuaiu7q" path="res://addons/kenney_ui_audio/click1.wav" id="2_nfgv5"]
+[ext_resource type="AudioStream" uid="uid://bcl7rqu5t64j6" path="res://addons/kenney_ui_audio/mouseclick1.wav" id="4_dad15"]
+
+[node name="UIAudioEffectsAttacher" type="Node"]
+script = ExtResource("1_mk1hd")
+
+[node name="ButtonPressedSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_nfgv5")
+bus = &"UI"
+script = ExtResource("2_fu2i2")
+node_group_name = "UIButtons"
+events_watched = 1
+
+[node name="ButtonFocusSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_dad15")
+bus = &"UI"
+script = ExtResource("2_fu2i2")
+node_group_name = "UIButtons"
+events_watched = 10

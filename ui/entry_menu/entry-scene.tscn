@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://kel11cbeatq4"]
+[gd_scene load_steps=9 format=3 uid="uid://kel11cbeatq4"]
 
 [ext_resource type="Theme" uid="uid://d1tl4ouhddgg7" path="res://ui/themes/base_theme.tres" id="1_coyy4"]
 [ext_resource type="Script" path="res://ui/scripts/focus_first.gd" id="1_ta2ne"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://ui/scripts/escape_to_return.gd" id="4_eaira"]
 [ext_resource type="Script" path="res://ui/scripts/auto_scrolling.gd" id="4_ko2qo"]
 [ext_resource type="Script" path="res://addons/simple-gui-transitions/transition.gd" id="5_i743p"]
+[ext_resource type="PackedScene" uid="uid://dlym47ojq04o7" path="res://ui/audio/ui_audio_effects_attacher.tscn" id="8_e8svh"]
 
 [node name="Entry Scene" type="Node2D"]
 
@@ -68,27 +69,27 @@ size_flags_vertical = 3
 theme_override_constants/separation = 10
 alignment = 1
 
-[node name="LoadGameButton" type="Button" parent="CanvasLayer/MainMenu/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+[node name="LoadGameButton" type="Button" parent="CanvasLayer/MainMenu/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer" groups=["UIButtons"]]
 unique_name_in_owner = true
 layout_mode = 2
 theme = ExtResource("1_coyy4")
 theme_override_font_sizes/font_size = 48
 text = "Load Game"
 
-[node name="NewGameButton" type="Button" parent="CanvasLayer/MainMenu/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+[node name="NewGameButton" type="Button" parent="CanvasLayer/MainMenu/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer" groups=["UIButtons"]]
 unique_name_in_owner = true
 layout_mode = 2
 theme = ExtResource("1_coyy4")
 theme_override_font_sizes/font_size = 48
 text = "New Game"
 
-[node name="CreditsButton" type="Button" parent="CanvasLayer/MainMenu/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+[node name="CreditsButton" type="Button" parent="CanvasLayer/MainMenu/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer" groups=["UIButtons"]]
 layout_mode = 2
 theme = ExtResource("1_coyy4")
 theme_override_font_sizes/font_size = 48
 text = "Credits"
 
-[node name="QuitButton" type="Button" parent="CanvasLayer/MainMenu/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+[node name="QuitButton" type="Button" parent="CanvasLayer/MainMenu/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer" groups=["UIButtons"]]
 layout_mode = 2
 theme = ExtResource("1_coyy4")
 theme_override_font_sizes/font_size = 48
@@ -314,6 +315,10 @@ group = NodePath("../../CanvasLayer/Credits/HBoxContainer2")
 [node name="EscapeToReturn" type="Node" parent="."]
 unique_name_in_owner = true
 script = ExtResource("4_eaira")
+
+[node name="UIAudioEffectsAttacher" parent="." instance=ExtResource("8_e8svh")]
+unique_name_in_owner = true
+root_path = NodePath("../CanvasLayer")
 
 [connection signal="pressed" from="CanvasLayer/MainMenu/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/LoadGameButton" to="CanvasLayer/MainMenu" method="_on_load_game_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/MainMenu/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/NewGameButton" to="CanvasLayer/MainMenu" method="_on_new_game_button_pressed"]

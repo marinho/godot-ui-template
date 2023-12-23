@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://c0oax286unqgq"]
+[gd_scene load_steps=6 format=3 uid="uid://c0oax286unqgq"]
 
 [ext_resource type="Theme" uid="uid://d1tl4ouhddgg7" path="res://ui/themes/base_theme.tres" id="1_ghw0i"]
 [ext_resource type="Script" path="res://ui/in_game_ui/in_game_ui.gd" id="1_mahv3"]
 [ext_resource type="Script" path="res://addons/simple-gui-transitions/transition.gd" id="3_rxbxl"]
 [ext_resource type="Script" path="res://ui/scripts/focus_first.gd" id="3_ya1jk"]
+[ext_resource type="PackedScene" uid="uid://dlym47ojq04o7" path="res://ui/audio/ui_audio_effects_attacher.tscn" id="5_yt0n1"]
 
 [node name="InGameUi" type="CanvasLayer"]
 process_mode = 3
@@ -96,13 +97,13 @@ layout_mode = 2
 theme_override_constants/separation = 10
 alignment = 1
 
-[node name="ResumeButton" type="Button" parent="PauseMenu/HBoxContainer/VBoxContainer"]
+[node name="ResumeButton" type="Button" parent="PauseMenu/HBoxContainer/VBoxContainer" groups=["UIButtons"]]
 layout_mode = 2
 theme = ExtResource("1_ghw0i")
 theme_override_font_sizes/font_size = 48
 text = "Resume Game"
 
-[node name="QuitButton" type="Button" parent="PauseMenu/HBoxContainer/VBoxContainer"]
+[node name="QuitButton" type="Button" parent="PauseMenu/HBoxContainer/VBoxContainer" groups=["UIButtons"]]
 layout_mode = 2
 theme = ExtResource("1_ghw0i")
 theme_override_font_sizes/font_size = 48
@@ -122,6 +123,9 @@ script = ExtResource("3_rxbxl")
 auto_start = 0
 layout = NodePath("../../PauseMenu")
 group = NodePath("../../PauseMenu/HBoxContainer")
+
+[node name="UIAudioEffectsAttacher" parent="." instance=ExtResource("5_yt0n1")]
+root_path = NodePath("../PauseMenu")
 
 [connection signal="pressed" from="PauseMenu/HBoxContainer/VBoxContainer/ResumeButton" to="." method="unpause"]
 [connection signal="pressed" from="PauseMenu/HBoxContainer/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]

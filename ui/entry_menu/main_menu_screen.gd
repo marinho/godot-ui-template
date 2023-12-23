@@ -82,6 +82,8 @@ func update_load_game_list():
 		new_button.pressed.connect(func(): load_game_from_button(game))
 		load_game_list.add_child(new_button)
 
+	%UIAudioEffectsAttacher.apply_on_node(load_game_list)
+
 
 func load_game_from_button(game):
 	GameManager.set_current_game(game)
