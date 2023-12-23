@@ -9,7 +9,7 @@ max_value = 360.0
 _data = [Vector2(0, -360), 0.0, 0.0, 0, 0, Vector2(1, 360), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveTexture" id="CurveTexture_i7yx5"]
+[sub_resource type="CurveTexture" id="CurveTexture_dqf63"]
 curve = SubResource("Curve_1hlog")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_8h821"]
@@ -17,18 +17,18 @@ particle_flag_align_y = true
 particle_flag_rotate_y = true
 angle_min = 1.0
 angle_max = 1.0
-angle_curve = SubResource("CurveTexture_i7yx5")
+angle_curve = SubResource("CurveTexture_dqf63")
 direction = Vector3(0, 0, 0)
 spread = 0.0
 initial_velocity_max = 100.0
 gravity = Vector3(0, 0, 0)
 
-[sub_resource type="Gradient" id="Gradient_oxjnd"]
+[sub_resource type="Gradient" id="Gradient_1ia1x"]
 offsets = PackedFloat32Array(0.662651, 0.698795)
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_a3q6h"]
-gradient = SubResource("Gradient_oxjnd")
+gradient = SubResource("Gradient_1ia1x")
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 
@@ -38,7 +38,7 @@ length = 0.01
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("dissolve_rect:modulate")
+tracks/0/path = NodePath("BackgroundBlocker:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -53,7 +53,7 @@ resource_name = "dissolve"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("dissolve_rect:modulate")
+tracks/0/path = NodePath("BackgroundBlocker:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -73,7 +73,7 @@ _data = {
 process_mode = 3
 script = ExtResource("1_21eiu")
 
-[node name="dissolve_rect" type="ColorRect" parent="."]
+[node name="BackgroundBlocker" type="ColorRect" parent="."]
 modulate = Color(1, 1, 1, 0)
 anchors_preset = 15
 anchor_right = 1.0
@@ -83,7 +83,7 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0.298039, 0.298039, 0.298039, 1)
 
-[node name="HBoxContainer" type="HBoxContainer" parent="dissolve_rect"]
+[node name="HBoxContainer" type="HBoxContainer" parent="BackgroundBlocker"]
 layout_mode = 2
 offset_right = 2304.0
 offset_bottom = 1296.0
@@ -92,13 +92,13 @@ grow_vertical = 2
 mouse_filter = 2
 alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="dissolve_rect/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="BackgroundBlocker/HBoxContainer"]
 custom_minimum_size = Vector2(500, 0)
 layout_mode = 2
 mouse_filter = 2
 alignment = 1
 
-[node name="RichTextLabel" type="RichTextLabel" parent="dissolve_rect/HBoxContainer/VBoxContainer"]
+[node name="RichTextLabel" type="RichTextLabel" parent="BackgroundBlocker/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 mouse_filter = 2
 theme = ExtResource("2_gqx0t")
@@ -107,12 +107,12 @@ bbcode_enabled = true
 text = "[center]Loading..."
 fit_content = true
 
-[node name="MarginContainer" type="MarginContainer" parent="dissolve_rect/HBoxContainer/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="BackgroundBlocker/HBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
 mouse_filter = 2
 
-[node name="GPUParticles2D" type="GPUParticles2D" parent="dissolve_rect/HBoxContainer/VBoxContainer/MarginContainer"]
+[node name="GPUParticles2D" type="GPUParticles2D" parent="BackgroundBlocker/HBoxContainer/VBoxContainer/MarginContainer"]
 position = Vector2(250, 100)
 amount = 1
 process_material = SubResource("ParticleProcessMaterial_8h821")

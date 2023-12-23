@@ -1,16 +1,24 @@
-[gd_scene load_steps=6 format=3 uid="uid://c0oax286unqgq"]
+[gd_scene load_steps=12 format=3 uid="uid://c0oax286unqgq"]
 
 [ext_resource type="Theme" uid="uid://d1tl4ouhddgg7" path="res://ui/themes/base_theme.tres" id="1_ghw0i"]
 [ext_resource type="Script" path="res://ui/in_game_ui/in_game_ui.gd" id="1_mahv3"]
 [ext_resource type="Script" path="res://addons/simple-gui-transitions/transition.gd" id="3_rxbxl"]
 [ext_resource type="Script" path="res://ui/scripts/focus_first.gd" id="3_ya1jk"]
+[ext_resource type="Texture2D" uid="uid://cvi8jgfqd2t1g" path="res://ui/images/arrow-narrow-left-semi.png" id="4_5jjlj"]
+[ext_resource type="Texture2D" uid="uid://bt1ebn58tciix" path="res://ui/images/arrow-narrow-left.png" id="4_ocg6o"]
+[ext_resource type="Texture2D" uid="uid://ceyc1t8u2u4q" path="res://ui/images/arrow-narrow-left-inverted.png" id="5_pwro8"]
 [ext_resource type="PackedScene" uid="uid://dlym47ojq04o7" path="res://ui/audio/ui_audio_effects_attacher.tscn" id="5_yt0n1"]
+[ext_resource type="Texture2D" uid="uid://t1lpnsn3dg6x" path="res://ui/images/arrow-narrow-right-semi.png" id="7_w853e"]
+[ext_resource type="Texture2D" uid="uid://chpo2nrftmbnq" path="res://ui/images/arrow-narrow-right-inverted.png" id="8_7o7c2"]
+[ext_resource type="Texture2D" uid="uid://bb24gg8owkrvw" path="res://ui/images/arrow-narrow-right.png" id="9_gav7v"]
 
 [node name="InGameUi" type="CanvasLayer"]
 process_mode = 3
 script = ExtResource("1_mahv3")
 
-[node name="ActiveGame" type="Control" parent="."]
+[node name="Pages" type="Node" parent="."]
+
+[node name="ActiveGame" type="Control" parent="Pages"]
 unique_name_in_owner = true
 layout_mode = 3
 anchors_preset = 15
@@ -20,7 +28,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="HealthBar" type="MarginContainer" parent="ActiveGame"]
+[node name="HealthBar" type="MarginContainer" parent="Pages/ActiveGame"]
 layout_mode = 0
 offset_right = 520.0
 offset_bottom = 117.0
@@ -29,7 +37,7 @@ theme_override_constants/margin_top = 30
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 30
 
-[node name="HealthBarRichText" type="RichTextLabel" parent="ActiveGame/HealthBar"]
+[node name="HealthBarRichText" type="RichTextLabel" parent="Pages/ActiveGame/HealthBar"]
 clip_contents = false
 layout_mode = 2
 theme = ExtResource("1_ghw0i")
@@ -38,7 +46,7 @@ bbcode_enabled = true
 text = "❤️❤️🤎"
 fit_content = true
 
-[node name="ScoreBar" type="MarginContainer" parent="ActiveGame"]
+[node name="ScoreBar" type="MarginContainer" parent="Pages/ActiveGame"]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -51,7 +59,7 @@ theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 30
 theme_override_constants/margin_bottom = 30
 
-[node name="ScoreRichText" type="RichTextLabel" parent="ActiveGame/ScoreBar"]
+[node name="ScoreRichText" type="RichTextLabel" parent="Pages/ActiveGame/ScoreBar"]
 clip_contents = false
 layout_mode = 2
 theme = ExtResource("1_ghw0i")
@@ -60,7 +68,7 @@ bbcode_enabled = true
 text = "[right]000123"
 fit_content = true
 
-[node name="PauseMenu" type="Control" parent="."]
+[node name="PauseMenu" type="Control" parent="Pages"]
 unique_name_in_owner = true
 process_mode = 2
 layout_mode = 3
@@ -70,19 +78,22 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="FocusFirst" type="Node" parent="PauseMenu" node_paths=PackedStringArray("controls_in_sequence")]
+[node name="FocusFirst" type="Node" parent="Pages/PauseMenu" node_paths=PackedStringArray("controls_in_sequence")]
 script = ExtResource("3_ya1jk")
-controls_in_sequence = [NodePath("../HBoxContainer/VBoxContainer/ResumeButton"), NodePath("../HBoxContainer/VBoxContainer/QuitButton")]
+controls_in_sequence = [NodePath("../HBoxContainer/VBoxContainer/ResumeButton"), NodePath("../HBoxContainer/VBoxContainer/MainMenuButton"), NodePath("../HBoxContainer/VBoxContainer/QuitButton")]
 
-[node name="Background Panel" type="Panel" parent="PauseMenu"]
+[node name="BackgroundBlocker" type="ColorRect" parent="Pages/PauseMenu"]
+modulate = Color(1, 1, 1, 0.784314)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
+color = Color(0.298039, 0.298039, 0.298039, 1)
 
-[node name="HBoxContainer" type="HBoxContainer" parent="PauseMenu"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Pages/PauseMenu"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -91,23 +102,257 @@ grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PauseMenu/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Pages/PauseMenu/HBoxContainer"]
 custom_minimum_size = Vector2(500, 0)
 layout_mode = 2
 theme_override_constants/separation = 10
 alignment = 1
 
-[node name="ResumeButton" type="Button" parent="PauseMenu/HBoxContainer/VBoxContainer" groups=["UIButtons"]]
+[node name="ResumeButton" type="Button" parent="Pages/PauseMenu/HBoxContainer/VBoxContainer" groups=["UIButtons"]]
 layout_mode = 2
 theme = ExtResource("1_ghw0i")
 theme_override_font_sizes/font_size = 48
 text = "Resume Game"
 
-[node name="QuitButton" type="Button" parent="PauseMenu/HBoxContainer/VBoxContainer" groups=["UIButtons"]]
+[node name="MainMenuButton" type="Button" parent="Pages/PauseMenu/HBoxContainer/VBoxContainer" groups=["UIButtons"]]
+layout_mode = 2
+theme = ExtResource("1_ghw0i")
+theme_override_font_sizes/font_size = 48
+text = "Return to Menu"
+
+[node name="QuitButton" type="Button" parent="Pages/PauseMenu/HBoxContainer/VBoxContainer" groups=["UIButtons"]]
 layout_mode = 2
 theme = ExtResource("1_ghw0i")
 theme_override_font_sizes/font_size = 48
 text = "Quit Game"
+
+[node name="PageLeftButton" type="TextureButton" parent="Pages/PauseMenu" groups=["UIButtons"]]
+modulate = Color(1, 1, 1, 0.588235)
+layout_mode = 2
+offset_left = 10.0
+offset_top = 11.0
+offset_right = 63.0
+offset_bottom = 1287.0
+grow_vertical = 2
+focus_mode = 0
+texture_normal = ExtResource("4_5jjlj")
+texture_pressed = ExtResource("5_pwro8")
+texture_hover = ExtResource("4_ocg6o")
+stretch_mode = 5
+
+[node name="PageRightButton" type="TextureButton" parent="Pages/PauseMenu" groups=["UIButtons"]]
+modulate = Color(1, 1, 1, 0.588235)
+layout_mode = 2
+offset_left = 2241.0
+offset_top = 10.0
+offset_right = 2294.0
+offset_bottom = 1286.0
+focus_mode = 0
+texture_normal = ExtResource("7_w853e")
+texture_pressed = ExtResource("8_7o7c2")
+texture_hover = ExtResource("9_gav7v")
+stretch_mode = 5
+
+[node name="Settings" type="Control" parent="Pages"]
+unique_name_in_owner = true
+process_mode = 2
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="FocusFirst" type="Node" parent="Pages/Settings" node_paths=PackedStringArray("controls_in_sequence")]
+script = ExtResource("3_ya1jk")
+controls_in_sequence = [NodePath("../HBoxContainer/VBoxContainer2/VBoxContainer/HFlowContainer/MusicSlider"), NodePath("../HBoxContainer/VBoxContainer2/VBoxContainer/HFlowContainer2/SoundSlider")]
+
+[node name="BackgroundBlocker" type="ColorRect" parent="Pages/Settings"]
+modulate = Color(1, 1, 1, 0.784314)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.298039, 0.298039, 0.298039, 1)
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Pages/Settings"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Pages/Settings/HBoxContainer"]
+custom_minimum_size = Vector2(700, 0)
+layout_mode = 2
+
+[node name="Game Title Container" type="CenterContainer" parent="Pages/Settings/HBoxContainer/VBoxContainer2"]
+custom_minimum_size = Vector2(2.08165e-12, 300)
+layout_mode = 2
+
+[node name="Game Title" type="RichTextLabel" parent="Pages/Settings/HBoxContainer/VBoxContainer2/Game Title Container"]
+layout_mode = 2
+theme = ExtResource("1_ghw0i")
+theme_override_font_sizes/normal_font_size = 80
+bbcode_enabled = true
+text = "[center]Settings"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Pages/Settings/HBoxContainer/VBoxContainer2"]
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="HFlowContainer" type="HBoxContainer" parent="Pages/Settings/HBoxContainer/VBoxContainer2/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Pages/Settings/HBoxContainer/VBoxContainer2/VBoxContainer/HFlowContainer"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+theme = ExtResource("1_ghw0i")
+theme_override_font_sizes/font_size = 40
+text = "Background Music"
+
+[node name="MusicSlider" type="HSlider" parent="Pages/Settings/HBoxContainer/VBoxContainer2/VBoxContainer/HFlowContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+
+[node name="HFlowContainer2" type="HBoxContainer" parent="Pages/Settings/HBoxContainer/VBoxContainer2/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Pages/Settings/HBoxContainer/VBoxContainer2/VBoxContainer/HFlowContainer2"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+theme = ExtResource("1_ghw0i")
+theme_override_font_sizes/font_size = 40
+text = "Sound Effects"
+
+[node name="SoundSlider" type="HSlider" parent="Pages/Settings/HBoxContainer/VBoxContainer2/VBoxContainer/HFlowContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+
+[node name="PageLeftButton" type="TextureButton" parent="Pages/Settings" groups=["UIButtons"]]
+modulate = Color(1, 1, 1, 0.588235)
+layout_mode = 2
+offset_left = 10.0
+offset_top = 11.0
+offset_right = 63.0
+offset_bottom = 1287.0
+focus_mode = 0
+texture_normal = ExtResource("4_5jjlj")
+texture_pressed = ExtResource("5_pwro8")
+texture_hover = ExtResource("4_ocg6o")
+stretch_mode = 5
+
+[node name="PageRightButton" type="TextureButton" parent="Pages/Settings" groups=["UIButtons"]]
+modulate = Color(1, 1, 1, 0.588235)
+layout_mode = 2
+offset_left = 2241.0
+offset_top = 10.0
+offset_right = 2294.0
+offset_bottom = 1286.0
+focus_mode = 0
+texture_normal = ExtResource("7_w853e")
+texture_pressed = ExtResource("8_7o7c2")
+texture_hover = ExtResource("9_gav7v")
+stretch_mode = 5
+
+[node name="Controls" type="Control" parent="Pages"]
+unique_name_in_owner = true
+process_mode = 2
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="FocusFirst" type="Node" parent="Pages/Controls"]
+script = ExtResource("3_ya1jk")
+
+[node name="BackgroundBlocker" type="ColorRect" parent="Pages/Controls"]
+modulate = Color(1, 1, 1, 0.784314)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.298039, 0.298039, 0.298039, 1)
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Pages/Controls"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Pages/Controls/HBoxContainer"]
+custom_minimum_size = Vector2(700, 0)
+layout_mode = 2
+
+[node name="Game Title Container" type="CenterContainer" parent="Pages/Controls/HBoxContainer/VBoxContainer2"]
+custom_minimum_size = Vector2(2.08165e-12, 300)
+layout_mode = 2
+
+[node name="Game Title" type="RichTextLabel" parent="Pages/Controls/HBoxContainer/VBoxContainer2/Game Title Container"]
+layout_mode = 2
+theme = ExtResource("1_ghw0i")
+theme_override_font_sizes/normal_font_size = 80
+bbcode_enabled = true
+text = "[center]Controls"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Pages/Controls/HBoxContainer/VBoxContainer2"]
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="PageLeftButton" type="TextureButton" parent="Pages/Controls" groups=["UIButtons"]]
+modulate = Color(1, 1, 1, 0.588235)
+layout_mode = 2
+offset_left = 10.0
+offset_top = 11.0
+offset_right = 63.0
+offset_bottom = 1287.0
+focus_mode = 0
+texture_normal = ExtResource("4_5jjlj")
+texture_pressed = ExtResource("5_pwro8")
+texture_hover = ExtResource("4_ocg6o")
+stretch_mode = 5
+
+[node name="PageRightButton" type="TextureButton" parent="Pages/Controls" groups=["UIButtons"]]
+modulate = Color(1, 1, 1, 0.588235)
+layout_mode = 2
+offset_left = 2241.0
+offset_top = 10.0
+offset_right = 2294.0
+offset_bottom = 1286.0
+focus_mode = 0
+texture_normal = ExtResource("7_w853e")
+texture_pressed = ExtResource("8_7o7c2")
+texture_hover = ExtResource("9_gav7v")
+stretch_mode = 5
 
 [node name="Transitions" type="Node" parent="."]
 process_mode = 3
@@ -115,17 +360,36 @@ process_mode = 3
 [node name="TransitionToActiveGame" type="Node" parent="Transitions"]
 script = ExtResource("3_rxbxl")
 auto_start = 0
-layout = NodePath("../../ActiveGame")
-controls = Array[NodePath]([NodePath("../../ActiveGame/HealthBar"), NodePath("../../ActiveGame/ScoreBar")])
+layout = NodePath("../../Pages/ActiveGame")
+controls = Array[NodePath]([NodePath("../../Pages/ActiveGame/HealthBar"), NodePath("../../Pages/ActiveGame/ScoreBar")])
 
 [node name="TransitionToPauseMenu" type="Node" parent="Transitions"]
 script = ExtResource("3_rxbxl")
 auto_start = 0
-layout = NodePath("../../PauseMenu")
-group = NodePath("../../PauseMenu/HBoxContainer")
+layout = NodePath("../../Pages/PauseMenu")
+group = NodePath("../../Pages/PauseMenu/HBoxContainer")
+
+[node name="TransitionToSettings" type="Node" parent="Transitions"]
+script = ExtResource("3_rxbxl")
+auto_start = 0
+layout = NodePath("../../Pages/Settings")
+group = NodePath("../../Pages/Settings/HBoxContainer")
+
+[node name="TransitionToControls" type="Node" parent="Transitions"]
+script = ExtResource("3_rxbxl")
+auto_start = 0
+layout = NodePath("../../Pages/Controls")
+group = NodePath("../../Pages/Controls/HBoxContainer")
 
 [node name="UIAudioEffectsAttacher" parent="." instance=ExtResource("5_yt0n1")]
-root_path = NodePath("../PauseMenu")
+root_path = NodePath("../Pages")
 
-[connection signal="pressed" from="PauseMenu/HBoxContainer/VBoxContainer/ResumeButton" to="." method="unpause"]
-[connection signal="pressed" from="PauseMenu/HBoxContainer/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="Pages/PauseMenu/HBoxContainer/VBoxContainer/ResumeButton" to="." method="unpause"]
+[connection signal="pressed" from="Pages/PauseMenu/HBoxContainer/VBoxContainer/MainMenuButton" to="." method="return_to_entry_scene"]
+[connection signal="pressed" from="Pages/PauseMenu/HBoxContainer/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="Pages/PauseMenu/PageLeftButton" to="." method="go_to_controls"]
+[connection signal="pressed" from="Pages/PauseMenu/PageRightButton" to="." method="go_to_settings"]
+[connection signal="pressed" from="Pages/Settings/PageLeftButton" to="." method="go_to_pause_menu"]
+[connection signal="pressed" from="Pages/Settings/PageRightButton" to="." method="go_to_controls"]
+[connection signal="pressed" from="Pages/Controls/PageLeftButton" to="." method="go_to_settings"]
+[connection signal="pressed" from="Pages/Controls/PageRightButton" to="." method="go_to_pause_menu"]

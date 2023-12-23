@@ -88,4 +88,3 @@ func update_load_game_list():
 func load_game_from_button(game):
 	GameManager.set_current_game(game)
 	GameManager.load_scene(game["location"]["scene"])
-	# TODO: player position
