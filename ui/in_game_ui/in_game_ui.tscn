@@ -1,0 +1,47 @@
+[gd_scene load_steps=3 format=3 uid="uid://c0oax286unqgq"]
+
+[ext_resource type="Theme" uid="uid://d1tl4ouhddgg7" path="res://ui/themes/base_theme.tres" id="1_ghw0i"]
+[ext_resource type="Script" path="res://ui/in_game_ui/in_game_ui.gd" id="1_mahv3"]
+
+[node name="InGameUi" type="CanvasLayer"]
+script = ExtResource("1_mahv3")
+
+[node name="HealthBar" type="MarginContainer" parent="."]
+offset_right = 520.0
+offset_bottom = 108.0
+mouse_filter = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 30
+
+[node name="HealthBarRichText" type="RichTextLabel" parent="HealthBar"]
+clip_contents = false
+layout_mode = 2
+theme = ExtResource("1_ghw0i")
+theme_override_font_sizes/normal_font_size = 60
+bbcode_enabled = true
+text = "❤️❤️🤎"
+fit_content = true
+
+[node name="ScoreBar" type="MarginContainer" parent="."]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -520.0
+offset_bottom = 108.0
+grow_horizontal = 0
+mouse_filter = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 30
+
+[node name="ScoreRichText" type="RichTextLabel" parent="ScoreBar"]
+clip_contents = false
+layout_mode = 2
+theme = ExtResource("1_ghw0i")
+theme_override_font_sizes/normal_font_size = 60
+bbcode_enabled = true
+text = "[right]000123"
+fit_content = true
