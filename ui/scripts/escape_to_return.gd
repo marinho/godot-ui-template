@@ -17,7 +17,7 @@ func _process(_delta):
 	if can_return and not GuiTransitions.is_hidden(layout_to_return_to):
 		return
 
-	if Input.is_action_just_pressed("ui_cancel"):
+	if Input.is_action_just_pressed(input_name):
 		can_return = false
 		before_return.emit()
 		GuiTransitions.go_to(layout_to_return_to)

@@ -5,7 +5,9 @@ extends CanvasLayer
 @export var layout_name_pause_menu = "PauseMenu"
 @export var layout_name_settings = "Settings"
 @export var layout_name_controls = "Controls"
-@export var input_name = "ui_cancel"
+@export var toggle_input_name = "ui_toggle_pause"
+@export var page_left_input_name = "ui_page_up"
+@export var page_right_input_name = "ui_page_down"
 
 @onready var layout_active_game = %ActiveGame
 @onready var layout_pause_menu = %PauseMenu
@@ -27,7 +29,7 @@ func _process(_delta):
 	if not can_be_paused:
 		return
 
-	if Input.is_action_just_pressed("ui_cancel"):
+	if Input.is_action_just_pressed(toggle_input_name):
 		if is_paused:
 			unpause()
 		else:
@@ -47,10 +49,10 @@ func paging_input():
 	else:
 		return
 
-	if Input.is_action_just_pressed("ui_page_up"):
+	if Input.is_action_just_pressed(page_left_input_name):
 		var page_left_button = page.get_node("PageLeftButton")
 		page_left_button.pressed.emit()
-	elif Input.is_action_just_pressed("ui_page_down"):
+	elif Input.is_action_just_pressed(page_right_input_name):
 		var page_right_button = page.get_node("PageRightButton")
 		page_right_button.pressed.emit()
 
