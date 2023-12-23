@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://cp0psa6mivpil"]
 
-[ext_resource type="Script" path="res://autoloads/game_persistence.gd" id="1_gfhkr"]
+[ext_resource type="Script" path="res://ui/autoloads/game_persistence.gd" id="1_gfhkr"]
 
 [node name="Game Persistence" type="Node"]
 script = ExtResource("1_gfhkr")

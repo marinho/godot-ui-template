@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="godot-ui-template"
-run/main_scene="res://entry-scene.tscn"
+run/main_scene="res://ui/entry_menu/entry-scene.tscn"
 config/use_custom_user_dir=true
 config/custom_user_dir_name="godot-ui-template"
 config/features=PackedStringArray("4.2", "Forward Plus")
@@ -20,11 +20,11 @@ config/icon="res://icon.svg"
 [autoload]
 
 GuiTransitions="*res://addons/simple-gui-transitions/singleton.gd"
-GameManager="*res://autoloads/game-manager.tscn"
-GamePersistence="*res://autoloads/game_persistence.tscn"
-GameSaver="*res://autoloads/game_saver.tscn"
-SceneTransition="*res://autoloads/scene_transition.tscn"
-FreezeManager="*res://autoloads/freeze_manager.gd"
+GameManager="*res://ui/autoloads/game-manager.tscn"
+GamePersistence="*res://ui/autoloads/game_persistence.tscn"
+GameSaver="*res://ui/autoloads/game_saver.tscn"
+SceneTransition="*res://ui/autoloads/scene_transition.tscn"
+FreezeManager="*res://ui/autoloads/freeze_manager.gd"
 
 [display]
 

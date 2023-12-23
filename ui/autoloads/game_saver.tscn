@@ -1,7 +1,7 @@
 [gd_scene load_steps=17 format=3 uid="uid://nblwxr2136j1"]
 
-[ext_resource type="Script" path="res://autoloads/game_saver.gd" id="1_hwcn4"]
-[ext_resource type="Texture2D" uid="uid://bgjbwwtu27o25" path="res://images/auto-saving-text.png" id="2_rvid4"]
+[ext_resource type="Script" path="res://ui/autoloads/game_saver.gd" id="1_hwcn4"]
+[ext_resource type="Texture2D" uid="uid://bgjbwwtu27o25" path="res://ui/images/auto-saving-text.png" id="2_rvid4"]
 
 [sub_resource type="Curve" id="Curve_tn5yt"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.24898, 1), 0.0, 0.0, 0, 0, Vector2(0.746939, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]

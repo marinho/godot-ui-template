@@ -1,11 +1,11 @@
 [gd_scene load_steps=8 format=3 uid="uid://kel11cbeatq4"]
 
-[ext_resource type="Theme" uid="uid://d1tl4ouhddgg7" path="res://themes/base_theme.tres" id="1_coyy4"]
-[ext_resource type="Script" path="res://scripts/focus_first.gd" id="1_ta2ne"]
-[ext_resource type="Script" path="res://scripts/main_menu_screen.gd" id="1_wuwwh"]
-[ext_resource type="PackedScene" uid="uid://c8tr356pyli77" path="res://resources/load_game_item_button.tscn" id="2_ljwiw"]
-[ext_resource type="Script" path="res://scripts/escape_to_return.gd" id="4_eaira"]
-[ext_resource type="Script" path="res://scripts/auto_scrolling.gd" id="4_ko2qo"]
+[ext_resource type="Theme" uid="uid://d1tl4ouhddgg7" path="res://ui/themes/base_theme.tres" id="1_coyy4"]
+[ext_resource type="Script" path="res://ui/scripts/focus_first.gd" id="1_ta2ne"]
+[ext_resource type="Script" path="res://ui/entry_menu/main_menu_screen.gd" id="1_wuwwh"]
+[ext_resource type="PackedScene" uid="uid://c8tr356pyli77" path="res://ui/entry_menu/load_game_item_button.tscn" id="2_ljwiw"]
+[ext_resource type="Script" path="res://ui/scripts/escape_to_return.gd" id="4_eaira"]
+[ext_resource type="Script" path="res://ui/scripts/auto_scrolling.gd" id="4_ko2qo"]
 [ext_resource type="Script" path="res://addons/simple-gui-transitions/transition.gd" id="5_i743p"]
 
 [node name="Entry Scene" type="Node2D"]

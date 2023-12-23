@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=3 uid="uid://cyogrnycmr5xd"]
 
-[ext_resource type="Script" path="res://autoloads/scene_transition.gd" id="1_21eiu"]
-[ext_resource type="Theme" uid="uid://d1tl4ouhddgg7" path="res://themes/base_theme.tres" id="2_gqx0t"]
+[ext_resource type="Script" path="res://ui/autoloads/scene_transition.gd" id="1_21eiu"]
+[ext_resource type="Theme" uid="uid://d1tl4ouhddgg7" path="res://ui/themes/base_theme.tres" id="2_gqx0t"]
 
 [sub_resource type="Curve" id="Curve_1hlog"]
 min_value = -360.0
