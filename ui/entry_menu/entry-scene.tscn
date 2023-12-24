@@ -279,8 +279,6 @@ scroll_active = false
 unique_name_in_owner = true
 script = ExtResource("5_i743p")
 auto_start = 1
-animation_enter = 4
-animation_leave = 4
 layout = NodePath("../../CanvasLayer/MainMenu")
 controls = Array[NodePath]([NodePath("../../CanvasLayer/MainMenu/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/LoadGameButton"), NodePath("../../CanvasLayer/MainMenu/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/NewGameButton"), NodePath("../../CanvasLayer/MainMenu/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/CreditsButton"), NodePath("../../CanvasLayer/MainMenu/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/QuitButton")])
 group = NodePath("../../CanvasLayer/MainMenu/HBoxContainer")
@@ -288,16 +286,12 @@ group = NodePath("../../CanvasLayer/MainMenu/HBoxContainer")
 [node name="TransitionNewGame" type="Node" parent="Transitions"]
 unique_name_in_owner = true
 script = ExtResource("5_i743p")
-animation_enter = 4
-animation_leave = 4
 layout = NodePath("../../CanvasLayer/NewGame")
 group = NodePath("../../CanvasLayer/NewGame/HBoxContainer")
 
 [node name="TransitionLoadGame" type="Node" parent="Transitions"]
 unique_name_in_owner = true
 script = ExtResource("5_i743p")
-animation_enter = 4
-animation_leave = 4
 layout = NodePath("../../CanvasLayer/LoadGame")
 controls = Array[NodePath]([NodePath("")])
 group = NodePath("../../CanvasLayer/LoadGame/HBoxContainer")

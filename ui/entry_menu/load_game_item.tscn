@@ -10,14 +10,14 @@ custom_minimum_size = Vector2(600, 0)
 focus_next = NodePath("LoadButton")
 script = ExtResource("1_b8xkw")
 
-[node name="LoadButton" type="Button" parent="."]
+[node name="LoadButton" type="Button" parent="." groups=["UIButtons"]]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("2_a0ap8")
 text = "#1 : 100%"
 
-[node name="DeleteButton" type="Button" parent="."]
+[node name="DeleteButton" type="Button" parent="." groups=["UIButtons"]]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2

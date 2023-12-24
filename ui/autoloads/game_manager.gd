@@ -10,9 +10,9 @@ func set_current_game(new_game_id : int):
 	current_game_id = new_game_id
 
 
-func load_scene(scene_file_path):
-	current_scene_path = scene_file_path
-	SceneTransition.change_scene(scene_file_path)
+func load_scene(scene_path):
+	current_scene_path = scene_path
+	SceneTransition.change_scene(scene_path)
 	await SceneTransition.after_scene_change
 	InGameUi.activate_for_game()
 	

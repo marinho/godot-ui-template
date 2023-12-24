@@ -30,7 +30,7 @@ func get_audio_sounds():
 
 func install_connections(root_node : Node, audio_sounds : Array):
 	var valid_sounds = audio_sounds.filter(func (s): return s.is_active and s.node_group_name != "")
-	for sound in audio_sounds:
+	for sound in valid_sounds:
 		var ui_objects = get_children_in_group(root_node, sound.node_group_name)
 
 		for ui_object in ui_objects:
