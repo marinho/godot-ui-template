@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://dsrigeegl4hwd"]
+
+[ext_resource type="Script" path="res://ui/autoloads/dialog_launcher.gd" id="1_3smsi"]
+
+[node name="ConfirmationLauncher" type="CanvasLayer"]
+process_mode = 3
+script = ExtResource("1_3smsi")

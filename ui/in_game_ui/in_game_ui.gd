@@ -58,7 +58,11 @@ func paging_input():
 
 
 func _on_quit_button_pressed():
-	get_tree().quit()
+	DialogLauncher.confirm("Are you sure to quit the game?")
+	var confirmed = await DialogLauncher.user_confirmed
+
+	if confirmed:
+		get_tree().quit()
 
 
 func activate_for_game():

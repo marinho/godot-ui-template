@@ -17,6 +17,8 @@ func _on_load_button_pressed():
 
 
 func _on_delete_button_pressed():
-	GamePersistence.delete_saved_game(game_id)
-	# TODO: ask for confirmation
+	DialogLauncher.confirm("Are you sure you want to delete this game?")
+	var confirmed = await DialogLauncher.user_confirmed
 
+	if confirmed:
+		GamePersistence.delete_saved_game(game_id)
