@@ -2,6 +2,8 @@
 
 This is a Godot 4.2 project, created with the goal to facilitate onboarding a basic UI setup for a simple game. Use it as you wish.
 
+![Entry Image](./docs/images/entry-scene-menu.png)
+
 ## How to use it
 
 Download from repository https://github.com/marinho/godot-ui-template and copy folder "ui" to your game project. Then adapt it to whatever is your need.
@@ -99,6 +101,8 @@ Responsible for collecting current game player state and then saving it using Ga
 
 Responsible for a smooth transition from a scene to another, with a loading animation in between.
 
+It relies on [Simple GUI Transitions](https://github.com/murikistudio/simple-gui-transitions) addon for handling transitions.
+
 #### Methods
 
 | Name                                  | Description                                                                   |
@@ -110,3 +114,103 @@ Responsible for a smooth transition from a scene to another, with a loading anim
 | Name                   | Description                                         |
 | ---------------------- | --------------------------------------------------- |
 | **after_scene_change** | Triggered after a new scene is loaded to be current |
+
+## Screens
+
+### Entry Scene
+
+#### Main Menu
+
+Entry view of the game, when use can chose to load an existing game or launch a new one.
+
+The button "Load Game" only appears if there are saved games.
+
+![Entry Image](./docs/images/entry-scene-menu.png)
+
+#### Load a Game
+
+List all saved games, so user can chose of them.
+
+Limited up to a maximum of 5 games (configurable).
+
+![Load a Game](./docs/images/entry-scene-load-game.png)
+
+#### New Game
+
+This is just a transition while a new game is created and launched.
+
+![New Game](./docs/images/entry-scene-new-game.png)
+
+#### Credits
+
+A auto-scrolling screen for game credits and copyrights.
+
+![Credits](./docs/images/entry-scene-credits.png)
+
+### In Game
+
+#### Loading Transition
+
+Used when teleporting or switching to other game scenes.
+
+![Loading Transition](./docs/images/loading-transition.png)
+
+#### HUD
+
+Always visible while game is playing and not paused. This one only just a placeholder for health/hearts bar and a score bar. Real games vary this a lot, as each of them has their own game play, so this screen might have attached controls, mana, stamina, character avatar, inventory box, a burger button for pausing and so on.
+
+Joystick controls for mobile could be added as well, however it may be better to add a separate CanvasLayer AutoLoad on top instead.
+
+![HUD](./docs/images/in-game-hud.png)
+
+#### Pause Menu
+
+Menu shown when user pauses the game, either just as a break or to look at settings, controls or other game aspects. I can also be fashioned for other game specific features, such as inventory, quest log or map.
+
+![Pause Menu](./docs/images/in-game-pause-menu.png)
+
+#### Pause Settings
+
+This screen can also vary a lot from a game to another, as each of them has a different set of preferences.
+
+![Pause Settings](./docs/images/in-game-pause-settings.png)
+
+#### Pause Controls
+
+This is a placeholder screen where you can add instructions about inputs used in the game.
+
+![Pause Controls](./docs/images/in-game-pause-controls.png)
+
+## Inputs
+
+This template supports keyboard and XBox-like gamepads. It mostly follows Godot 4.2 defaults, but it changes the following inputs for its better usage:
+
+| Input name      | Description                                                                                                |
+| --------------- | ---------------------------------------------------------------------------------------------------------- |
+| ui_page_up      | Used to switch between pages Menu, Settings and Controls in the In Game pause screen. Controls: PgUp or ZL |
+| ui_page_down    | Same as above. Controls: PgDown or ZR                                                                      |
+| ui_toggle_pause | Used to pause/unpause game. Controls: ESC or "+" joystick button                                           |
+
+## Audio
+
+Using [Kenney UI Audio](https://www.kenney.nl/assets/ui-audio) pack by default.
+
+Add `ui/audio/ui_audio_effects_attacher.tscn` to your scene and set its root node path.
+
+Buttons in group "UIButton" will play a sound when pressed or focused.
+
+It can be extended by adding more AudioStreamPlayer into `ui_audio_effects_attacher.tscn` with the script `ui_audio_sound_player.gd` and attached an audioclip and respective properties in inspector, as you can see below:
+
+![ui_audio_effects_attacher](./docs/images/ui-audio-effects-attacher.png)
+
+Beware it relies on Audio Bus "UI", which can be changed or created in your project.
+
+## Theming
+
+Using `ui/themes/base_theme.tres` for font name and font sizes.
+
+The used font is [JetBrains_Mono](https://fonts.google.com/specimen/JetBrains+Mono?query=JetBrains+Mono) which is freely available in Google Fonts. Change it as you will in `ui/fonts/game_ui_font.tres`.
+
+## License
+
+MIT License. Just use it at your own risk and wish.
