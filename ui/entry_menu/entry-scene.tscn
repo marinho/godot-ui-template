@@ -71,6 +71,8 @@ theme_override_constants/separation = 10
 [node name="LoadGameButton" type="Button" parent="CanvasLayer/MainMenu/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer" groups=["UIButtons"]]
 unique_name_in_owner = true
 layout_mode = 2
+focus_neighbor_top = NodePath("../QuitButton")
+focus_previous = NodePath("../QuitButton")
 theme = ExtResource("1_coyy4")
 text = "Load Game"
 
@@ -87,6 +89,8 @@ text = "Credits"
 
 [node name="QuitButton" type="Button" parent="CanvasLayer/MainMenu/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer" groups=["UIButtons"]]
 layout_mode = 2
+focus_neighbor_bottom = NodePath("../LoadGameButton")
+focus_next = NodePath("../LoadGameButton")
 theme = ExtResource("1_coyy4")
 text = "Quit Game"
 

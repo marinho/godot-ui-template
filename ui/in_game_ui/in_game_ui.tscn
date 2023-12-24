@@ -109,6 +109,8 @@ alignment = 1
 
 [node name="ResumeButton" type="Button" parent="Pages/PauseMenu/HBoxContainer/VBoxContainer" groups=["UIButtons"]]
 layout_mode = 2
+focus_neighbor_top = NodePath("../QuitButton")
+focus_previous = NodePath("../QuitButton")
 theme = ExtResource("1_ghw0i")
 text = "Resume Game"
 
@@ -119,6 +121,8 @@ text = "Return to Menu"
 
 [node name="QuitButton" type="Button" parent="Pages/PauseMenu/HBoxContainer/VBoxContainer" groups=["UIButtons"]]
 layout_mode = 2
+focus_neighbor_bottom = NodePath("../ResumeButton")
+focus_next = NodePath("../ResumeButton")
 theme = ExtResource("1_ghw0i")
 text = "Quit Game"
 
@@ -224,6 +228,7 @@ text = "Background Music"
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
+step = 10.0
 
 [node name="HFlowContainer2" type="HBoxContainer" parent="Pages/Settings/HBoxContainer/VBoxContainer2/VBoxContainer"]
 layout_mode = 2

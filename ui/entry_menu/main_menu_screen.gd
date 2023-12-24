@@ -73,6 +73,7 @@ func update_load_game_list():
 	if len(saved_games) == 0:
 		return
 	
+	# Add the buttons for the saved games
 	for game in saved_games.slice(0, maximum_saved_games):
 		var date_string = Time.get_datetime_string_from_datetime_dict(game.datetime, true)
 		var label = "#{} : {}".format([game.id, date_string], "{}")
@@ -81,6 +82,14 @@ func update_load_game_list():
 		new_button.game_id = game["id"]
 		new_button.pressed.connect(func(): load_game_from_button(game))
 		load_game_list.add_child(new_button)
+
+	# Enable circular navigation between the buttons
+	var first_button = load_game_list.get_children().front() as Button
+	var last_button = load_game_list.get_children().back() as Button
+	first_button.focus_neighbor_top = last_button.get_path()
+	first_button.focus_previous = last_button.get_path()
+	last_button.focus_neighbor_bottom = first_button.get_path()
+	last_button.focus_next = first_button.get_path()
 
 	%UIAudioEffectsAttacher.apply_on_node(load_game_list)
 
