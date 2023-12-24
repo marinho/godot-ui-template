@@ -1,9 +1,0 @@
-[gd_scene load_steps=3 format=3 uid="uid://c8tr356pyli77"]
-
-[ext_resource type="Theme" uid="uid://d1tl4ouhddgg7" path="res://ui/themes/base_theme.tres" id="1_6bts2"]
-[ext_resource type="Script" path="res://ui/entry_menu/load_game_item_button.gd" id="2_5nvm7"]
-
-[node name="LoadGameItemButton" type="Button" groups=["UIButtons"]]
-theme = ExtResource("1_6bts2")
-text = "Game to Load"
-script = ExtResource("2_5nvm7")

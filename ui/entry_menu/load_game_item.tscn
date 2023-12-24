@@ -1,0 +1,34 @@
+[gd_scene load_steps=5 format=3 uid="uid://8jk0qjid17o4"]
+
+[ext_resource type="Script" path="res://ui/entry_menu/load_game_item.gd" id="1_b8xkw"]
+[ext_resource type="Theme" uid="uid://d1tl4ouhddgg7" path="res://ui/themes/base_theme.tres" id="2_a0ap8"]
+[ext_resource type="PackedScene" uid="uid://dlym47ojq04o7" path="res://ui/audio/ui_audio_effects_attacher.tscn" id="3_gghjv"]
+[ext_resource type="Script" path="res://ui/scripts/focus_first.gd" id="4_t64ei"]
+
+[node name="LoadGameItem" type="HBoxContainer"]
+custom_minimum_size = Vector2(600, 0)
+focus_next = NodePath("LoadButton")
+script = ExtResource("1_b8xkw")
+
+[node name="LoadButton" type="Button" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("2_a0ap8")
+text = "#1 : 100%"
+
+[node name="DeleteButton" type="Button" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+text = "X"
+
+[node name="UIAudioEffectsAttacher" parent="." instance=ExtResource("3_gghjv")]
+root_path = NodePath("..")
+
+[node name="FocusFirst" type="Node" parent="." node_paths=PackedStringArray("controls_in_sequence")]
+script = ExtResource("4_t64ei")
+controls_in_sequence = [NodePath("../LoadButton"), NodePath("../DeleteButton")]
+
+[connection signal="pressed" from="LoadButton" to="." method="_on_load_button_pressed"]
+[connection signal="pressed" from="DeleteButton" to="." method="_on_delete_button_pressed"]

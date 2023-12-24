@@ -2,6 +2,10 @@ extends Node
 
 @export var file_name = "game.json"
 
+signal game_created(game_id : int)
+signal game_updated(game_id : int)
+signal game_deleted(game_id : int)
+
 var file_path = ""
 
 # Called when the node enters the scene tree for the first time.
@@ -37,8 +41,10 @@ func save_new_game(first_scene_path : String):
 	if not json.has("saved_games"):
 		json["saved_games"] = []
 
+	var biggest_game_id = json["saved_games"].map(func(x): return x["id"]).max()
+
 	var new_game = {
-		"id": json["saved_games"].size() + 1,
+		"id": biggest_game_id + 1,
 		"datetime": Time.get_datetime_dict_from_system(),
 		"completed_percent": 0.0,
 		"time_played": 0.0,
@@ -59,6 +65,7 @@ func save_new_game(first_scene_path : String):
 
 	json["saved_games"].append(new_game)
 	save_json_to_file(json)
+	game_created.emit(new_game["id"])
 
 	return new_game
 
@@ -84,7 +91,15 @@ func update_saved_game(game_id: int, partial_values):
 	game_json["saved_games"] = game_json["saved_games"].map(func(x): return updated_game if x["id"] == game_id else x)
 	
 	save_json_to_file(game_json)
+	game_updated.emit(game_id)
 	
+
+func delete_saved_game(game_id: int):
+	var game_json = _read_file_as_json()
+	game_json["saved_games"] = game_json["saved_games"].filter(func(x): return x["id"] != game_id)
+	save_json_to_file(game_json)
+	game_deleted.emit(game_id)
+
 
 func _override_dict(original_dict, new_dict):
 	var dict_to_overwrite = original_dict.duplicate()

@@ -1,9 +1,9 @@
 extends Node
 
 @export var can_start_new_game: bool = true
-@export var load_game_item_button: Resource
-@export_file() var first_scene_new_game;
-@export_range(0, 10) var maximum_saved_games = 3;
+@export var load_game_item: Resource
+@export_file() var first_scene_new_game
+@export_range(0, 10) var maximum_saved_games = 5
 
 @onready var new_game_button = %NewGameButton
 @onready var load_game_button = %LoadGameButton
@@ -21,6 +21,7 @@ func _ready():
 	GuiTransitions.go_to("MainMenu")
 	await GuiTransitions.show_completed
 	focus_first.focus_on_first()
+	GamePersistence.game_deleted.connect(func (_game_id): _game_deletion_callback())
 
 
 func _on_load_game_button_pressed():
@@ -28,9 +29,16 @@ func _on_load_game_button_pressed():
 	update_load_game_list()
 	GuiTransitions.go_to("LoadGame")
 	await GuiTransitions.show_completed
-	var first_button = load_game_list.get_children().front() as Button
-	first_button.grab_focus()
 	escape_to_return.can_return = true
+
+	# Focus the first button
+	_focus_on_first_load_game()
+
+
+func _focus_on_first_load_game():
+	if load_game_list.get_child_count() > 0:
+		var first = load_game_list.get_children().front()
+		first.get_node("FocusFirst").focus_on_first()
 	
 
 func _on_new_game_button_pressed():
@@ -75,25 +83,24 @@ func update_load_game_list():
 	
 	# Add the buttons for the saved games
 	for game in saved_games.slice(0, maximum_saved_games):
-		var date_string = Time.get_datetime_string_from_datetime_dict(game.datetime, true)
-		var label = "#{} : {}".format([game.id, date_string], "{}")
-		var new_button = load_game_item_button.instantiate() as Button
-		new_button.text = label
-		new_button.game_id = game["id"]
-		new_button.pressed.connect(func(): load_game_from_button(game))
-		load_game_list.add_child(new_button)
+		var new_item = load_game_item.instantiate() as HBoxContainer
+		load_game_list.add_child(new_item)
+		new_item.set_game(game)
 
 	# Enable circular navigation between the buttons
-	var first_button = load_game_list.get_children().front() as Button
-	var last_button = load_game_list.get_children().back() as Button
-	first_button.focus_neighbor_top = last_button.get_path()
-	first_button.focus_previous = last_button.get_path()
-	last_button.focus_neighbor_bottom = first_button.get_path()
-	last_button.focus_next = first_button.get_path()
-
-	%UIAudioEffectsAttacher.apply_on_node(load_game_list)
+	var first_item = load_game_list.get_children().front() as HBoxContainer
+	var last_item = load_game_list.get_children().back() as HBoxContainer
+	first_item.get_node("%LoadButton").focus_neighbor_top = last_item.get_node("%LoadButton").get_path()
+	first_item.get_node("%DeleteButton").focus_neighbor_top = last_item.get_node("%DeleteButton").get_path()
+	last_item.get_node("%LoadButton").focus_neighbor_bottom = first_item.get_node("%LoadButton").get_path()
+	last_item.get_node("%DeleteButton").focus_neighbor_bottom = first_item.get_node("%DeleteButton").get_path()
 
 
 func load_game_from_button(game):
 	GameManager.set_current_game(game["id"])
 	GameManager.load_scene(game["location"]["scene"])
+
+
+func _game_deletion_callback():
+	update_load_game_list()
+	_focus_on_first_load_game()
