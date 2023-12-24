@@ -18,10 +18,7 @@ signal unpaused
 
 var is_paused = false
 var can_be_paused = false
-
-
-func _ready():
-	pass
+var is_switching_page = false
 
 
 func _process(_delta):
@@ -39,6 +36,17 @@ func _process(_delta):
 	
 
 func paging_input():
+	if is_switching_page:
+		return
+
+	var change_direction = 0
+	if Input.is_action_just_pressed(page_left_input_name):
+		change_direction = -1
+	elif Input.is_action_just_pressed(page_right_input_name):
+		change_direction = 1
+	else:
+		return
+
 	var page
 	if layout_pause_menu.visible:
 		page = layout_pause_menu
@@ -49,10 +57,10 @@ func paging_input():
 	else:
 		return
 
-	if Input.is_action_just_pressed(page_left_input_name):
+	if change_direction < 0:
 		var page_left_button = page.get_node("PageLeftButton")
 		page_left_button.pressed.emit()
-	elif Input.is_action_just_pressed(page_right_input_name):
+	elif change_direction > 0:
 		var page_right_button = page.get_node("PageRightButton")
 		page_right_button.pressed.emit()
 
@@ -99,14 +107,26 @@ func return_to_entry_scene():
 	GameManager.load_entry_scene()
 
 
+func go_to_pause_menu():
+	is_switching_page = true
+	GuiTransitions.go_to(layout_name_pause_menu)
+	await GuiTransitions.show_completed
+	layout_pause_menu.get_node("FocusFirst").focus_on_first()
+	is_switching_page = false
+	
+
 func go_to_settings():
+	is_switching_page = true
 	GuiTransitions.go_to(layout_name_settings)
 	await GuiTransitions.show_completed
 	layout_settings.get_node("FocusFirst").focus_on_first()
+	is_switching_page = false
 	
 
 func go_to_controls():
+	is_switching_page = true
 	GuiTransitions.go_to(layout_name_controls)
 	await GuiTransitions.show_completed
 	layout_controls.get_node("FocusFirst").focus_on_first()
+	is_switching_page = false
 	
