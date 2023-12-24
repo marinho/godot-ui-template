@@ -41,7 +41,7 @@ theme_override_constants/margin_bottom = 30
 clip_contents = false
 layout_mode = 2
 theme = ExtResource("1_ghw0i")
-theme_override_font_sizes/normal_font_size = 60
+theme_override_font_sizes/normal_font_size = 40
 bbcode_enabled = true
 text = "❤️❤️🤎"
 fit_content = true
@@ -63,7 +63,6 @@ theme_override_constants/margin_bottom = 30
 clip_contents = false
 layout_mode = 2
 theme = ExtResource("1_ghw0i")
-theme_override_font_sizes/normal_font_size = 60
 bbcode_enabled = true
 text = "[right]000123"
 fit_content = true
@@ -111,28 +110,24 @@ alignment = 1
 [node name="ResumeButton" type="Button" parent="Pages/PauseMenu/HBoxContainer/VBoxContainer" groups=["UIButtons"]]
 layout_mode = 2
 theme = ExtResource("1_ghw0i")
-theme_override_font_sizes/font_size = 48
 text = "Resume Game"
 
 [node name="MainMenuButton" type="Button" parent="Pages/PauseMenu/HBoxContainer/VBoxContainer" groups=["UIButtons"]]
 layout_mode = 2
 theme = ExtResource("1_ghw0i")
-theme_override_font_sizes/font_size = 48
 text = "Return to Menu"
 
 [node name="QuitButton" type="Button" parent="Pages/PauseMenu/HBoxContainer/VBoxContainer" groups=["UIButtons"]]
 layout_mode = 2
 theme = ExtResource("1_ghw0i")
-theme_override_font_sizes/font_size = 48
 text = "Quit Game"
 
 [node name="PageLeftButton" type="TextureButton" parent="Pages/PauseMenu" groups=["UIButtons"]]
 modulate = Color(1, 1, 1, 0.588235)
-layout_mode = 2
-offset_left = 10.0
-offset_top = 11.0
-offset_right = 63.0
-offset_bottom = 1287.0
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 53.0
 grow_vertical = 2
 focus_mode = 0
 texture_normal = ExtResource("4_5jjlj")
@@ -142,11 +137,14 @@ stretch_mode = 5
 
 [node name="PageRightButton" type="TextureButton" parent="Pages/PauseMenu" groups=["UIButtons"]]
 modulate = Color(1, 1, 1, 0.588235)
-layout_mode = 2
-offset_left = 2241.0
-offset_top = 10.0
-offset_right = 2294.0
-offset_bottom = 1286.0
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -53.0
+grow_horizontal = 0
+grow_vertical = 2
 focus_mode = 0
 texture_normal = ExtResource("7_w853e")
 texture_pressed = ExtResource("8_7o7c2")
@@ -192,14 +190,14 @@ alignment = 1
 custom_minimum_size = Vector2(700, 0)
 layout_mode = 2
 
-[node name="Game Title Container" type="CenterContainer" parent="Pages/Settings/HBoxContainer/VBoxContainer2"]
-custom_minimum_size = Vector2(2.08165e-12, 300)
+[node name="HeadingContainer" type="CenterContainer" parent="Pages/Settings/HBoxContainer/VBoxContainer2"]
+custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 
-[node name="Game Title" type="RichTextLabel" parent="Pages/Settings/HBoxContainer/VBoxContainer2/Game Title Container"]
+[node name="HeadingLabel" type="RichTextLabel" parent="Pages/Settings/HBoxContainer/VBoxContainer2/HeadingContainer"]
 layout_mode = 2
 theme = ExtResource("1_ghw0i")
-theme_override_font_sizes/normal_font_size = 80
+theme_type_variation = &"HeadingLabel"
 bbcode_enabled = true
 text = "[center]Settings"
 fit_content = true
@@ -217,10 +215,9 @@ alignment = 1
 layout_mode = 2
 
 [node name="Label" type="Label" parent="Pages/Settings/HBoxContainer/VBoxContainer2/VBoxContainer/HFlowContainer"]
-custom_minimum_size = Vector2(400, 0)
+custom_minimum_size = Vector2(350, 0)
 layout_mode = 2
 theme = ExtResource("1_ghw0i")
-theme_override_font_sizes/font_size = 40
 text = "Background Music"
 
 [node name="MusicSlider" type="HSlider" parent="Pages/Settings/HBoxContainer/VBoxContainer2/VBoxContainer/HFlowContainer"]
@@ -232,10 +229,9 @@ size_flags_vertical = 4
 layout_mode = 2
 
 [node name="Label" type="Label" parent="Pages/Settings/HBoxContainer/VBoxContainer2/VBoxContainer/HFlowContainer2"]
-custom_minimum_size = Vector2(400, 0)
+custom_minimum_size = Vector2(350, 0)
 layout_mode = 2
 theme = ExtResource("1_ghw0i")
-theme_override_font_sizes/font_size = 40
 text = "Sound Effects"
 
 [node name="SoundSlider" type="HSlider" parent="Pages/Settings/HBoxContainer/VBoxContainer2/VBoxContainer/HFlowContainer2"]
@@ -245,11 +241,11 @@ size_flags_vertical = 4
 
 [node name="PageLeftButton" type="TextureButton" parent="Pages/Settings" groups=["UIButtons"]]
 modulate = Color(1, 1, 1, 0.588235)
-layout_mode = 2
-offset_left = 10.0
-offset_top = 11.0
-offset_right = 63.0
-offset_bottom = 1287.0
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 53.0
+grow_vertical = 2
 focus_mode = 0
 texture_normal = ExtResource("4_5jjlj")
 texture_pressed = ExtResource("5_pwro8")
@@ -258,11 +254,14 @@ stretch_mode = 5
 
 [node name="PageRightButton" type="TextureButton" parent="Pages/Settings" groups=["UIButtons"]]
 modulate = Color(1, 1, 1, 0.588235)
-layout_mode = 2
-offset_left = 2241.0
-offset_top = 10.0
-offset_right = 2294.0
-offset_bottom = 1286.0
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -53.0
+grow_horizontal = 0
+grow_vertical = 2
 focus_mode = 0
 texture_normal = ExtResource("7_w853e")
 texture_pressed = ExtResource("8_7o7c2")
@@ -307,14 +306,14 @@ alignment = 1
 custom_minimum_size = Vector2(700, 0)
 layout_mode = 2
 
-[node name="Game Title Container" type="CenterContainer" parent="Pages/Controls/HBoxContainer/VBoxContainer2"]
-custom_minimum_size = Vector2(2.08165e-12, 300)
+[node name="HeadingContainer" type="CenterContainer" parent="Pages/Controls/HBoxContainer/VBoxContainer2"]
+custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 
-[node name="Game Title" type="RichTextLabel" parent="Pages/Controls/HBoxContainer/VBoxContainer2/Game Title Container"]
+[node name="HeadingLabel" type="RichTextLabel" parent="Pages/Controls/HBoxContainer/VBoxContainer2/HeadingContainer"]
 layout_mode = 2
 theme = ExtResource("1_ghw0i")
-theme_override_font_sizes/normal_font_size = 80
+theme_type_variation = &"HeadingLabel"
 bbcode_enabled = true
 text = "[center]Controls"
 fit_content = true
@@ -330,11 +329,11 @@ alignment = 1
 
 [node name="PageLeftButton" type="TextureButton" parent="Pages/Controls" groups=["UIButtons"]]
 modulate = Color(1, 1, 1, 0.588235)
-layout_mode = 2
-offset_left = 10.0
-offset_top = 11.0
-offset_right = 63.0
-offset_bottom = 1287.0
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 53.0
+grow_vertical = 2
 focus_mode = 0
 texture_normal = ExtResource("4_5jjlj")
 texture_pressed = ExtResource("5_pwro8")
@@ -343,11 +342,14 @@ stretch_mode = 5
 
 [node name="PageRightButton" type="TextureButton" parent="Pages/Controls" groups=["UIButtons"]]
 modulate = Color(1, 1, 1, 0.588235)
-layout_mode = 2
-offset_left = 2241.0
-offset_top = 10.0
-offset_right = 2294.0
-offset_bottom = 1286.0
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -53.0
+grow_horizontal = 0
+grow_vertical = 2
 focus_mode = 0
 texture_normal = ExtResource("7_w853e")
 texture_pressed = ExtResource("8_7o7c2")

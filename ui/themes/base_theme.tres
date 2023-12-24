@@ -1,4 +1,6 @@
 [gd_resource type="Theme" format=3 uid="uid://d1tl4ouhddgg7"]
 
 [resource]
-/font_sizes/Default = 24
+default_font_size = 30
+HeadingLabel/base_type = &"RichTextLabel"
+HeadingLabel/font_sizes/normal_font_size = 50

@@ -27,11 +27,6 @@ FreezeManager="*res://ui/autoloads/freeze_manager.gd"
 InGameUi="*res://ui/in_game_ui/in_game_ui.tscn"
 SceneTransition="*res://ui/autoloads/scene_transition.tscn"
 
-[display]
-
-window/size/viewport_width=2304
-window/size/viewport_height=1296
-
 [dotnet]
 
 project/assembly_name="godot-ui-template"
@@ -42,6 +37,7 @@ enabled=PackedStringArray("res://addons/simple-gui-transitions/plugin.cfg")
 
 [gui]
 
+theme/custom="res://ui/themes/base_theme.tres"
 theme/custom_font="res://ui/fonts/game_ui_font.tres"
 
 [gui_transitions]

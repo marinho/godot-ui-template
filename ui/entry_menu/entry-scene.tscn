@@ -40,17 +40,17 @@ grow_vertical = 2
 alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MainMenu/HBoxContainer"]
-custom_minimum_size = Vector2(1200, 0)
+custom_minimum_size = Vector2(600, 0)
 layout_mode = 2
 
 [node name="Game Title Container" type="CenterContainer" parent="CanvasLayer/MainMenu/HBoxContainer/VBoxContainer"]
-custom_minimum_size = Vector2(2.08165e-12, 300)
+custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
 
 [node name="Game Title" type="RichTextLabel" parent="CanvasLayer/MainMenu/HBoxContainer/VBoxContainer/Game Title Container"]
 layout_mode = 2
 theme = ExtResource("1_coyy4")
-theme_override_font_sizes/normal_font_size = 80
+theme_type_variation = &"HeadingLabel"
 bbcode_enabled = true
 text = "[center]Game Title or Logo"
 fit_content = true
@@ -63,47 +63,42 @@ size_flags_vertical = 3
 alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MainMenu/HBoxContainer/VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(500, 2.08165e-12)
+custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 10
-alignment = 1
 
 [node name="LoadGameButton" type="Button" parent="CanvasLayer/MainMenu/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer" groups=["UIButtons"]]
 unique_name_in_owner = true
 layout_mode = 2
 theme = ExtResource("1_coyy4")
-theme_override_font_sizes/font_size = 48
 text = "Load Game"
 
 [node name="NewGameButton" type="Button" parent="CanvasLayer/MainMenu/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer" groups=["UIButtons"]]
 unique_name_in_owner = true
 layout_mode = 2
 theme = ExtResource("1_coyy4")
-theme_override_font_sizes/font_size = 48
 text = "New Game"
 
 [node name="CreditsButton" type="Button" parent="CanvasLayer/MainMenu/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer" groups=["UIButtons"]]
 layout_mode = 2
 theme = ExtResource("1_coyy4")
-theme_override_font_sizes/font_size = 48
 text = "Credits"
 
 [node name="QuitButton" type="Button" parent="CanvasLayer/MainMenu/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer" groups=["UIButtons"]]
 layout_mode = 2
 theme = ExtResource("1_coyy4")
-theme_override_font_sizes/font_size = 48
 text = "Quit Game"
 
 [node name="Bottom Container" type="CenterContainer" parent="CanvasLayer/MainMenu/HBoxContainer/VBoxContainer"]
-custom_minimum_size = Vector2(2.08165e-12, 300)
+custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 
 [node name="Copyrights Text" type="RichTextLabel" parent="CanvasLayer/MainMenu/HBoxContainer/VBoxContainer/Bottom Container"]
 custom_minimum_size = Vector2(2.08165e-12, 2.08165e-12)
 layout_mode = 2
 theme = ExtResource("1_coyy4")
-theme_override_font_sizes/normal_font_size = 50
+theme_override_font_sizes/normal_font_size = 24
 bbcode_enabled = true
 text = "[center]Copyright 2023 ©️ Marinho Brandao"
 fit_content = true
@@ -134,17 +129,17 @@ grow_vertical = 2
 alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/LoadGame/HBoxContainer"]
-custom_minimum_size = Vector2(1200, 0)
+custom_minimum_size = Vector2(600, 0)
 layout_mode = 2
 
-[node name="Screen Title Container" type="CenterContainer" parent="CanvasLayer/LoadGame/HBoxContainer/VBoxContainer"]
-custom_minimum_size = Vector2(2.08165e-12, 300)
+[node name="HeadingContainer" type="CenterContainer" parent="CanvasLayer/LoadGame/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
 
-[node name="Screen Title" type="RichTextLabel" parent="CanvasLayer/LoadGame/HBoxContainer/VBoxContainer/Screen Title Container"]
+[node name="HeadingLabel" type="RichTextLabel" parent="CanvasLayer/LoadGame/HBoxContainer/VBoxContainer/HeadingContainer"]
 layout_mode = 2
 theme = ExtResource("1_coyy4")
-theme_override_font_sizes/normal_font_size = 80
+theme_type_variation = &"HeadingLabel"
 bbcode_enabled = true
 text = "[center]Load a game"
 fit_content = true
@@ -158,11 +153,10 @@ alignment = 1
 
 [node name="LoadGameList" type="VBoxContainer" parent="CanvasLayer/LoadGame/HBoxContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(700, 2.08165e-12)
+custom_minimum_size = Vector2(600, 0)
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_constants/separation = 40
-alignment = 1
+theme_override_constants/separation = 10
 
 [node name="NewGame" type="Control" parent="CanvasLayer"]
 unique_name_in_owner = true
@@ -192,7 +186,7 @@ size_flags_vertical = 3
 alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/NewGame/HBoxContainer/VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(1200, 2.08165e-12)
+custom_minimum_size = Vector2(600, 0)
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 40
@@ -201,7 +195,6 @@ alignment = 1
 [node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/NewGame/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme = ExtResource("1_coyy4")
-theme_override_font_sizes/normal_font_size = 36
 bbcode_enabled = true
 text = "[center]A new game is about to start..."
 fit_content = true
@@ -217,36 +210,35 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/Credits"]
-layout_mode = 2
-offset_left = 552.0
-offset_right = 1752.0
-offset_bottom = 1296.0
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Credits"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 size_flags_vertical = 3
 alignment = 1
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Credits/HBoxContainer2"]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Credits/HBoxContainer"]
 layout_mode = 2
-theme_override_constants/margin_top = 100
-theme_override_constants/margin_bottom = 100
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_bottom = 50
 
-[node name="CreditsScrollable" type="ScrollContainer" parent="CanvasLayer/Credits/HBoxContainer2/MarginContainer"]
+[node name="CreditsScrollable" type="ScrollContainer" parent="CanvasLayer/Credits/HBoxContainer/MarginContainer"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(1200, 0)
+custom_minimum_size = Vector2(800, 0)
 layout_mode = 2
 theme = ExtResource("1_coyy4")
 script = ExtResource("4_ko2qo")
 
-[node name="CreditsText" type="RichTextLabel" parent="CanvasLayer/Credits/HBoxContainer2/MarginContainer/CreditsScrollable"]
-custom_minimum_size = Vector2(1200, 0)
+[node name="CreditsText" type="RichTextLabel" parent="CanvasLayer/Credits/HBoxContainer/MarginContainer/CreditsScrollable"]
+custom_minimum_size = Vector2(800, 0)
 layout_mode = 2
 theme = ExtResource("1_coyy4")
 theme_override_constants/line_separation = 50
-theme_override_font_sizes/normal_font_size = 36
 bbcode_enabled = true
 text = "[center]
-
-
 
 
 Copyright 2023 ©️ Marinho Brandao	
@@ -310,7 +302,7 @@ group = NodePath("../../CanvasLayer/LoadGame/HBoxContainer")
 unique_name_in_owner = true
 script = ExtResource("5_i743p")
 layout = NodePath("../../CanvasLayer/Credits")
-group = NodePath("../../CanvasLayer/Credits/HBoxContainer2")
+group = NodePath("../../CanvasLayer/Credits/HBoxContainer")
 
 [node name="EscapeToReturn" type="Node" parent="."]
 unique_name_in_owner = true
