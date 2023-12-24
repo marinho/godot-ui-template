@@ -9,7 +9,7 @@ func _ready():
 	file_path = "user://" + file_name
 
 
-func read_file_as_json():
+func _read_file_as_json():
 	if FileAccess.file_exists(file_path):
 		var fp = FileAccess.open(file_path, FileAccess.READ)
 		var contents = fp.get_as_text()
@@ -25,15 +25,15 @@ func save_json_to_file(json):
 
 
 func get_saved_games():
-	var json = read_file_as_json()
+	var json = _read_file_as_json()
 	if json.has("saved_games"):
 		return json["saved_games"]
 	else:
 		return []
 
 
-func save_new_game(first_scene_path):
-	var json = read_file_as_json()
+func save_new_game(first_scene_path : String):
+	var json = _read_file_as_json()
 	if not json.has("saved_games"):
 		json["saved_games"] = []
 
@@ -64,7 +64,7 @@ func save_new_game(first_scene_path):
 
 
 func load_game(game_id: int):
-	var json = read_file_as_json()
+	var json = _read_file_as_json()
 	if not json.has("saved_games"):
 		return null
 
@@ -77,21 +77,21 @@ func load_game(game_id: int):
 
 
 func update_saved_game(game_id: int, partial_values):
-	var game_json = read_file_as_json()
+	var game_json = _read_file_as_json()
 	var saved_game = load_game(game_id)
-	var updated_game = overwrite_dict(saved_game, partial_values)
+	var updated_game = _override_dict(saved_game, partial_values)
 
 	game_json["saved_games"] = game_json["saved_games"].map(func(x): return updated_game if x["id"] == game_id else x)
 	
 	save_json_to_file(game_json)
 	
 
-func overwrite_dict(original_dict, new_dict):
+func _override_dict(original_dict, new_dict):
 	var dict_to_overwrite = original_dict.duplicate()
 	for key in new_dict.keys():
 		if dict_to_overwrite.has(key):
 			if typeof(dict_to_overwrite[key]) == TYPE_DICTIONARY:
-				dict_to_overwrite[key] = overwrite_dict(dict_to_overwrite[key], new_dict[key])
+				dict_to_overwrite[key] = _override_dict(dict_to_overwrite[key], new_dict[key])
 			else:
 				dict_to_overwrite[key] = new_dict[key]
 		else:

@@ -4,4 +4,3 @@
 
 [node name="Game Manager" type="Node"]
 script = ExtResource("1_n60lp")
-entry_scene_path = "res://ui/entry_menu/entry-scene.tscn"

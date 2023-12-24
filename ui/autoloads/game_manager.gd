@@ -3,11 +3,11 @@ extends Node
 const NO_GAME = -1
 @export var current_game_id : int = NO_GAME
 @export var current_scene_path : String
-@export_file() var entry_scene_path
+@export_file() var entry_scene_path = "res://ui/entry_menu/entry-scene.tscn"
 
 
-func set_current_game(new_game):
-	current_game_id = new_game["id"]
+func set_current_game(new_game_id : int):
+	current_game_id = new_game_id
 
 
 func load_scene(scene_file_path):

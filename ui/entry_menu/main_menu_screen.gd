@@ -39,7 +39,7 @@ func _on_new_game_button_pressed():
 	await GuiTransitions.show_completed
 
 	var new_game = GamePersistence.save_new_game(first_scene_new_game)
-	GameManager.set_current_game(new_game)
+	GameManager.set_current_game(new_game["id"])
 	GameManager.load_scene(first_scene_new_game)
 
 
@@ -86,5 +86,5 @@ func update_load_game_list():
 
 
 func load_game_from_button(game):
-	GameManager.set_current_game(game)
+	GameManager.set_current_game(game["id"])
 	GameManager.load_scene(game["location"]["scene"])

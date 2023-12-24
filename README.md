@@ -1,121 +1,112 @@
-<p align="center">
-  <img height="128" alt="Simple GUI Transitions" src="addons/simple-gui-transitions/icon.png">
-</p>
-<h1 align="center">Godot's Simple GUI Transitions</h1>
+# Godot UI Template
 
-*"Simple GUI transitions to swap menus elegantly."*
+This is a Godot 4.2 project, created with the goal to facilitate onboarding a basic UI setup for a simple game. Use it as you wish.
 
-This plugin gives access to the `GuiTransition` node which allows to transition multiple GUI layouts easily.
-Designed for **Godot 4.x** (3.x version available [here](https://github.com/murikistudio/simple-gui-transitions/tree/godot-3)).
-See the example scene on `addons/simple-gui-transitions/example` to see this plugin in action.
+## How to use it
 
-[Download it on Godot Asset Library](https://godotengine.org/asset-library/asset/2134)
+Download from repository https://github.com/marinho/godot-ui-template and copy folder "ui" to your game project. Then adapt it to whatever is your need.
 
-## Installation
-- Install the plugin through the [AssetLib](https://godotengine.org/asset-library/asset/2134) **or** copy the plugin `addons` folder to your project's directory
-- Enable the plugin on `Project > Project Settings > Plugins`
-- Reload your current project
+You can either use the nodes and scripts as they are, modify them to your game or - the most recommended when possible - keep them as they are and extend your own classes by using them. This is because of Single Reponsibility Principle and separation of concerns.
 
-## Global Settings
-The default transition settings can be set on `Project > Project Settings > GUI Transitions > Config` (you may need to enable `Advanced Settings` to see this section).
-Those settings will be applied on top of any `Default` property on the node `GuiTransition`. This is useful to increase or decrease the speed of transitions on the whole project, for example. See each property description below.
+## AutoLoads
 
-## Node `GuiTransition`
-The node `GuiTransition` is responsible for transitioning a specific layout.
+Most features in this repository depend in one or other way on some of the autoload nodes to be enabled in the project. They are listed below.
 
-### Properties
-#### Auto Start
-If the current layout will trigger its transition at startup automatically. Enabled by default.
+### FreezeManager
 
-#### Fade Layout
-If enabled, will fade the *whole layout* along with the selected animation of individual controls. The fade duration is based on the `Duration` property. Enabled by default.
+Manages how the game freezes processes, usually necessary for pausing the game or taking physics away while doing scene transitions or cut scenes.
 
-#### Animation Enter
-The animation type of the controls when entering the screen. The available animations are:
+Freezing applies only to nodes with [Process Mode](https://docs.godotengine.org/en/stable/classes/class_node.html#class-node-property-process-mode) being pausable. The UI nodes of this repository are mostly non pausable, due to their nature.
 
-- Fade
-- Slide left, right, up and down
-- Scale vertical, horizontal and both
+#### Methods
 
-#### Animation Leave
-The animation type of the controls when leaving the screen. The available animations are:
+| Name                                      | Description                                              |
+| ----------------------------------------- | -------------------------------------------------------- |
+| void **set_freezed**(to_be_freezed: bool) | Set a boolean value to define if game should be freezed. |
 
-- Fade
-- Slide left, right, up and down
-- Scale vertical, horizontal and both
+#### Signals
 
-#### Duration
-The total animation duration in seconds. A negative value such as the default `-0.01` will make the transition use the default value set in `Project Settings`.
+| Name          | Description                                |
+| ------------- | ------------------------------------------ |
+| **freezed**   | Triggered after the tree is set paused     |
+| **unfreezed** | Triggered after the tree is set not paused |
 
-#### Delay
-Delay ratio between transitions for each node contained in `Group` or `Controls`.
-The default value is `0.5`.
+### GameManager
 
-- A negative value such as the default `-0.01` will make the transition use the default value set in `Project Settings`.
-- A delay of `0.0` means no delay, that is, all controls will start and finish their animations at the same time.
-- A delay of `1.0` will make each control wait for the previous one to finish its animation to start its own.
-- A delay between `0.0` and `1.0` will make controls intertwine animations, giving a smoother effect.
+Very basic game management singleton, used to keep what's current game and scene and changing to another one.
 
-**Note:** See `addons/simple-gui-transitions/example/layout_3.tscn` for an interactive and visual representation of different delay ratios.
+#### Properties
 
-#### Layout ID
-Optional ID of layout to trigger changes on the singleton `GuiTransitions` (at method parameters named `id`).
-If empty, will be assumed as the `Layout` node name.
+| Name                          | Description                                                                                                      |
+| ----------------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| int **current_game_id**       | ID of current game as saved with GamePersistence. Default: `-1`                                                  |
+| String **current_scene_path** | Path to currently loaded scene                                                                                   |
+| String **entry_scene_path**   | Path to first scene when the game i started (i.e. entry menu). Default: `"res://ui/entry_menu/entry-scene.tscn"` |
 
-#### Layout
-The main layout node. It will be hidden and shown accordingly. Should be the topmost node of the current layout. **Required!**
+#### Methods
 
-#### Controls
-Array of individual nodes to be animated.
-The order will be taken in account to apply the animation `Delay`.
-**If empty, a `Group` must be set.**
+| Name                                         | Description                                                                                          |
+| -------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| void **set_current_game**(new_game: int)     | Set the ID of currently loaded game                                                                  |
+| void **load_scene**(scene_file_path: String) | Loads a scene by its path, using SceneTransition                                                     |
+| void **load_entry_scene**()                  | Returns back to entry scene - main difference to **load_scene** is that it doesn't activate InGameUI |
 
-#### Group
-A node with children controls to be animated in sequence.
-The order will be taken in account to apply the animation `Delay`.
-Example: a `HBoxContainer` or `VBoxContainer` with several buttons as children will allow to animate all buttons one by one.
-**If not set, `Controls` must be selected.**
+### GamePersistence
 
-#### Center Pivot
-When `Animation Enter` or `Animation Leave` is one of the scale animations, it will center the control's `pivot_offset` property.
+Responsible for file management for game states.
 
-#### Transition Type
-Transition curve of the animations. Same as `Tween.TransitionType`.
+#### Properties
 
-#### Ease Type
-Ease curve of the animations. Same as `Tween.EaseType`.
+| Name                 | Description                                                                                                                                                                                 |
+| -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| String **file_name** | File where game state is saved. [More information in here](https://docs.godotengine.org/en/stable/tutorials/io/data_paths.html#accessing-persistent-user-data-user). Default: `"game.json"` |
 
-## Singleton `GuiTransitions`
-The singleton `GuiTransitions` allows to trigger the transitions globally and swap GUI layouts.
+#### Methods
 
-### Signals
-#### show_completed
-The signal `show_completed` is emited after a layout has been shown.
+| Name                                                                            | Description                                                                                                                                                                                                                                               |
+| ------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Dictionary **\_read_file_as_json**()                                            | Just read JSON file a return as a dictionary                                                                                                                                                                                                              |
+| void **save_json_to_file**(json: Dictionary)                                    | Save a dictionary into the JSON file                                                                                                                                                                                                                      |
+| Dictionary[] **get_saved_games**()                                              | Returns a list of saved games from JSON file                                                                                                                                                                                                              |
+| Dictionary **save_new_game**(first_scene_path: String)                          | Create a new game with default values and return it                                                                                                                                                                                                       |
+| Dictionary **load_game**(game_id: int)                                          | Load a saved game by its ID                                                                                                                                                                                                                               |
+| Dictionary **\_override_dict**(original_dict: Dictionary, new_dict: Dictionary) | Works like [Dictionary.merge](https://docs.godotengine.org/en/stable/classes/class_dictionary.html#class-dictionary-method-merge), except that a value that is a dictionary won't replace the whole value but just the keys present in the new dictionary |
 
-#### hide_completed
-The signal `hide_completed` is emited after a layout has been hidden.
+### GameSaver
 
-### Public Methods
-#### go_to(id: String, function: Callable)
-The method `go_to` hides the current layout and shows the layout with the given `id`.
-If `function` (optional) is passed in, the `function` will be executed halfway through.
-Both signals `hide_completed` and `show_completed` are emited accordingly.
+Responsible for collecting current game player state and then saving it using GamePersistence. Automatic savings are possible, but disabled by default, as some games don't have it.
 
-#### update(function: Callable)
-The method `update` hides and shows the current layout.
-If `function` (optional) is passed in, the `function` will be executed halfway through.
-Both signals `hide_completed` and `show_completed` are emited accordingly.
+#### Properties
 
-#### show(id: String)
-The method `show` shows the layout with the given `id`.
-Emits the signal `show_completed` on completion.
+| Name                 | Description                                                                                            |
+| -------------------- | ------------------------------------------------------------------------------------------------------ |
+| bool **auto_saving** | When enabled, it will save current game based on the Timer node in `game_saver.tscn`. Default: `false` |
 
-#### hide(id: String)
-The method `hide` hides the layout with the given `id`, or all visible layouts if no `id` is passed in.
-Emits the signal `hide_completed` on completion.
+#### Methods
 
-#### is_shown(id: String)
-The method `is_shown` returns if the layout with the given `id` is currently visible.
+| Name                         | Description                                                                                           |
+| ---------------------------- | ----------------------------------------------------------------------------------------------------- |
+| void **save_player_state**() | Collects current game state, such as current scene and player position and save using GamePersistence |
 
-#### is_hidden(id: String)
-The method `is_hidden` returns if the layout with the given `id` is currently hidden.
+#### Signals
+
+| Name             | Description                    |
+| ---------------- | ------------------------------ |
+| **before_saved** | Triggered before game is saved |
+| **after_saved**  | Triggered after game is saved  |
+
+### SceneTransition
+
+Responsible for a smooth transition from a scene to another, with a loading animation in between.
+
+#### Methods
+
+| Name                                  | Description                                                                   |
+| ------------------------------------- | ----------------------------------------------------------------------------- |
+| void **change_scene**(target: String) | Does a transition from current to a new scene, using FreezeManager in between |
+
+#### Signals
+
+| Name                   | Description                                         |
+| ---------------------- | --------------------------------------------------- |
+| **after_scene_change** | Triggered after a new scene is loaded to be current |
