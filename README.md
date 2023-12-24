@@ -14,6 +14,33 @@ You can either use the nodes and scripts as they are, modify them to your game o
 
 Most features in this repository depend in one or other way on some of the autoload nodes to be enabled in the project. They are listed below.
 
+### DialogLauncher
+
+This autoload makes it easy to show an accept (alert) or confirmation dialog.
+
+#### Properties
+
+| Name                                   | Description                                                             |
+| -------------------------------------- | ----------------------------------------------------------------------- |
+| String **accept_title**                | Title for accept dialogs. Default: `"Alert"`                            |
+| String **accept_button_ok_label**      | Label for OK button in accept dialogs. Default: `"Ok"`                  |
+| String **confirm_title**               | Title for confirmation dialogs. Default: `"Confirmation"`               |
+| String **confirm_button_ok_label**     | Label for OK button in confirmation dialogs. Default: `"Yes, I'm sure"` |
+| String **confirm_button_cancel_label** | Label for Cancel button in confirmation dialogs. Default: `"No"`        |
+
+#### Methods
+
+| Name                              | Description                                                                      |
+| --------------------------------- | -------------------------------------------------------------------------------- |
+| void **confirm**(message: String) | Show confirmation dialog at the center of the screen, with Ok and Cancel buttons |
+| void **accept**(message: String)  | Show accept dialog at the center of the screen, with Ok button                   |
+
+#### Signals
+
+| Name                                | Description                                           |
+| ----------------------------------- | ----------------------------------------------------- |
+| **user_confirmed**(confirmed: bool) | Called after user confirm or cancel the latest dialog |
+
 ### FreezeManager
 
 Manages how the game freezes processes, usually necessary for pausing the game or taking physics away while doing scene transitions or cut scenes.
@@ -129,7 +156,7 @@ The button "Load Game" only appears if there are saved games.
 
 #### Load a Game
 
-List all saved games, so user can chose of them.
+List all saved games, so user can chose of them. it also shows an "X" button at the side for game deletion, with a confirmation dialog.
 
 Limited up to a maximum of 5 games (configurable).
 
