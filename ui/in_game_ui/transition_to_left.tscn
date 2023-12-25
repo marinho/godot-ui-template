@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://22amxyl6gjlq"]
+
+[ext_resource type="Script" path="res://addons/simple-gui-transitions/transition.gd" id="1_tbg16"]
+
+[node name="TransitionToLeft" type="Node"]
+script = ExtResource("1_tbg16")
+animation_enter = 0
+animation_leave = 0

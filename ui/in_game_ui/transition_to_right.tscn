@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://dngbntohvmduj"]
+
+[ext_resource type="Script" path="res://addons/simple-gui-transitions/transition.gd" id="1_sshw8"]
+
+[node name="TransitionToRight" type="Node"]
+script = ExtResource("1_sshw8")
+animation_enter = 1
+animation_leave = 1
