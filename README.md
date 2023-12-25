@@ -16,10 +16,8 @@ This repository is fully implemented using GDScript.
 
 ### Why not C#?
 
-Because of 3 reasons:
-
 - GDScript is always supported by Godot, while C# is only supported by Godot Mono
-- Most Godot users are used to GDSCript
+- Most Godot users are familiar to GDScript
 - The functions in this repository aren't performance critical, as they are only about UI, nothing like networking or high graphic processing. So, there's no real gain on using C# for this type of features
 
 ## AutoLoads
