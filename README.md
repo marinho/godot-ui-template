@@ -10,6 +10,18 @@ Download from repository https://github.com/marinho/godot-ui-template and copy f
 
 You can either use the nodes and scripts as they are, modify them to your game or - the most recommended when possible - keep them as they are and extend your own classes by using them. This is because of Single Reponsibility Principle and separation of concerns.
 
+## Language
+
+This repository is fully implemented using GDScript.
+
+### Why not C#?
+
+Because of 3 reasons:
+
+- GDScript is always supported by Godot, while C# is only supported by Godot Mono
+- Most Godot users are used to GDSCript
+- The functions in this repository aren't performance critical, as they are only about UI, nothing like networking or high graphic processing. So, there's no real gain on using C# for this type of features
+
 ## AutoLoads
 
 Most features in this repository depend in one or other way on some of the autoload nodes to be enabled in the project. The order matters, in regards to ensure their dependencies and/or layers on the screen canvas.
@@ -244,4 +256,4 @@ The used font is [JetBrains_Mono](https://fonts.google.com/specimen/JetBrains+Mo
 
 ## License
 
-MIT License. Just use it at your own risk and wish.
+Read [LICENSE](./LICENSE) file
