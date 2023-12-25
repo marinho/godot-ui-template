@@ -365,24 +365,28 @@ stretch_mode = 5
 process_mode = 3
 
 [node name="TransitionToActiveGame" type="Node" parent="Transitions"]
+unique_name_in_owner = true
 script = ExtResource("3_rxbxl")
 auto_start = 0
 layout = NodePath("../../Pages/ActiveGame")
 controls = Array[NodePath]([NodePath("../../Pages/ActiveGame/HealthBar"), NodePath("../../Pages/ActiveGame/ScoreBar")])
 
 [node name="TransitionToPauseMenu" type="Node" parent="Transitions"]
+unique_name_in_owner = true
 script = ExtResource("3_rxbxl")
 auto_start = 0
 layout = NodePath("../../Pages/PauseMenu")
 group = NodePath("../../Pages/PauseMenu/HBoxContainer")
 
 [node name="TransitionToSettings" type="Node" parent="Transitions"]
+unique_name_in_owner = true
 script = ExtResource("3_rxbxl")
 auto_start = 0
 layout = NodePath("../../Pages/Settings")
 group = NodePath("../../Pages/Settings/HBoxContainer")
 
 [node name="TransitionToControls" type="Node" parent="Transitions"]
+unique_name_in_owner = true
 script = ExtResource("3_rxbxl")
 auto_start = 0
 layout = NodePath("../../Pages/Controls")
@@ -392,11 +396,11 @@ group = NodePath("../../Pages/Controls/HBoxContainer")
 root_path = NodePath("../Pages")
 
 [connection signal="pressed" from="Pages/PauseMenu/HBoxContainer/VBoxContainer/ResumeButton" to="." method="unpause"]
-[connection signal="pressed" from="Pages/PauseMenu/HBoxContainer/VBoxContainer/MainMenuButton" to="." method="return_to_entry_scene"]
+[connection signal="pressed" from="Pages/PauseMenu/HBoxContainer/VBoxContainer/MainMenuButton" to="." method="_return_to_entry_scene"]
 [connection signal="pressed" from="Pages/PauseMenu/HBoxContainer/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
-[connection signal="pressed" from="Pages/PauseMenu/PageLeftButton" to="." method="go_to_controls"]
-[connection signal="pressed" from="Pages/PauseMenu/PageRightButton" to="." method="go_to_settings"]
-[connection signal="pressed" from="Pages/Settings/PageLeftButton" to="." method="go_to_pause_menu"]
-[connection signal="pressed" from="Pages/Settings/PageRightButton" to="." method="go_to_controls"]
-[connection signal="pressed" from="Pages/Controls/PageLeftButton" to="." method="go_to_settings"]
-[connection signal="pressed" from="Pages/Controls/PageRightButton" to="." method="go_to_pause_menu"]
+[connection signal="pressed" from="Pages/PauseMenu/PageLeftButton" to="." method="_switch_to_previous_layout"]
+[connection signal="pressed" from="Pages/PauseMenu/PageRightButton" to="." method="_switch_to_next_layout"]
+[connection signal="pressed" from="Pages/Settings/PageLeftButton" to="." method="_switch_to_previous_layout"]
+[connection signal="pressed" from="Pages/Settings/PageRightButton" to="." method="_switch_to_next_layout"]
+[connection signal="pressed" from="Pages/Controls/PageLeftButton" to="." method="_switch_to_previous_layout"]
+[connection signal="pressed" from="Pages/Controls/PageRightButton" to="." method="_switch_to_next_layout"]

@@ -1,17 +1,29 @@
 extends CanvasLayer
 
-@export var layout_name_active_game = "ActiveGame"
-@export var layout_name_pause_menu = "PauseMenu"
-@export var layout_name_settings = "Settings"
-@export var layout_name_controls = "Controls"
-@export var toggle_input_name = "ui_toggle_pause"
-@export var page_left_input_name = "ui_page_up"
-@export var page_right_input_name = "ui_page_down"
+const layout_name_active_game = "ActiveGame"
+const layout_name_pause_menu = "PauseMenu"
+const layout_name_settings = "Settings"
+const layout_name_controls = "Controls"
 
-@onready var layout_active_game = %ActiveGame
-@onready var layout_pause_menu = %PauseMenu
-@onready var layout_settings = %Settings
-@onready var layout_controls = %Controls
+@onready var toggle_input_name = "ui_toggle_pause"
+@onready var page_left_input_name = "ui_page_up"
+@onready var page_right_input_name = "ui_page_down"
+
+@onready var layouts = {
+	layout_name_active_game: %ActiveGame,
+	layout_name_pause_menu: %PauseMenu,
+	layout_name_settings: %Settings,
+	layout_name_controls: %Controls,
+}
+
+@onready var transitions = {
+	layout_name_active_game: %TransitionToActiveGame,
+	layout_name_pause_menu: %TransitionToPauseMenu,
+	layout_name_settings: %TransitionToSettings,
+	layout_name_controls: %TransitionToControls,
+}
+
+@onready var current_layout = layouts[layout_name_active_game]
 
 signal paused
 signal unpaused
@@ -47,21 +59,14 @@ func paging_input():
 	else:
 		return
 
-	var page
-	if layout_pause_menu.visible:
-		page = layout_pause_menu
-	elif layout_settings.visible:
-		page = layout_settings
-	elif layout_controls.visible:
-		page = layout_controls
-	else:
+	if current_layout == layouts[layout_name_active_game]:
 		return
 
 	if change_direction < 0:
-		var page_left_button = page.get_node("PageLeftButton")
+		var page_left_button = current_layout.get_node("PageLeftButton")
 		page_left_button.pressed.emit()
 	elif change_direction > 0:
-		var page_right_button = page.get_node("PageRightButton")
+		var page_right_button = current_layout.get_node("PageRightButton")
 		page_right_button.pressed.emit()
 
 
@@ -77,15 +82,19 @@ func activate_for_game():
 	visible = true
 	can_be_paused = true
 	GuiTransitions.show(layout_name_active_game)
+	current_layout = layouts[layout_name_active_game]
 
 
 func pause():
 	is_paused = true
 	FreezeManager.set_freezed(true)
 
+	transitions[layout_name_pause_menu].animation_enter = GuiTransition.Anim.DEFAULT
+
 	GuiTransitions.go_to(layout_name_pause_menu)
 	await GuiTransitions.show_completed
-	layout_pause_menu.get_node("FocusFirst").focus_on_first()
+	layouts[layout_name_pause_menu].get_node("FocusFirst").focus_on_first()
+	current_layout = layouts[layout_name_pause_menu]
 
 	paused.emit()
 	can_be_paused = true
@@ -95,44 +104,45 @@ func unpause():
 	is_paused = false
 	FreezeManager.set_freezed(false)
 	
+	transitions[layout_name_pause_menu].animation_leave = GuiTransition.Anim.DEFAULT
+
 	GuiTransitions.go_to(layout_name_active_game)
 	await GuiTransitions.show_completed
+	current_layout = layouts[layout_name_active_game]
 
 	unpaused.emit()
 	can_be_paused = true
 
 
-func return_to_entry_scene():
+func _return_to_entry_scene():
 	can_be_paused = false
 	GameManager.load_entry_scene()
 
 
-func go_to_pause_menu():
-	is_switching_page = true
-	ControlBlocker.set_active(true)
-	GuiTransitions.go_to(layout_name_pause_menu)
-	await GuiTransitions.show_completed
-	layout_pause_menu.get_node("FocusFirst").focus_on_first()
-	ControlBlocker.set_active(false)
-	is_switching_page = false
-	
+func _switch_to_previous_layout():
+	if current_layout == layouts[layout_name_pause_menu]:
+		_transition_to_layout(layout_name_controls)
+	elif current_layout == layouts[layout_name_settings]:
+		_transition_to_layout(layout_name_pause_menu)
+	elif current_layout == layouts[layout_name_controls]:
+		_transition_to_layout(layout_name_settings)
 
-func go_to_settings():
-	is_switching_page = true
-	ControlBlocker.set_active(true)
-	GuiTransitions.go_to(layout_name_settings)
-	await GuiTransitions.show_completed
-	layout_settings.get_node("FocusFirst").focus_on_first()
-	ControlBlocker.set_active(false)
-	is_switching_page = false
-	
 
-func go_to_controls():
+func _switch_to_next_layout():
+	if current_layout == layouts[layout_name_pause_menu]:
+		_transition_to_layout(layout_name_settings)
+	elif current_layout == layouts[layout_name_settings]:
+		_transition_to_layout(layout_name_controls)
+	elif current_layout == layouts[layout_name_controls]:
+		_transition_to_layout(layout_name_pause_menu)
+
+
+func _transition_to_layout(transition_to):
 	is_switching_page = true
 	ControlBlocker.set_active(true)
-	GuiTransitions.go_to(layout_name_controls)
+	GuiTransitions.go_to(transition_to)
 	await GuiTransitions.show_completed
-	layout_controls.get_node("FocusFirst").focus_on_first()
+	layouts[transition_to].get_node("FocusFirst").focus_on_first()
 	ControlBlocker.set_active(false)
+	current_layout = layouts[transition_to]
 	is_switching_page = false
-	
