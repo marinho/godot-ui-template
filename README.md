@@ -26,7 +26,17 @@ Most features in this repository depend in one or other way on some of the autol
 
 ![Project Autoloads](./docs/images/project-autoloads.png)
 
-They are listed below.
+They are described below.
+
+### ControlBlocker
+
+This component is used by other autoloads in order to fix the issue of being on a transition and use still being able to focus or click.
+
+#### Methods
+
+| Name                                 | Description                                                                                                   |
+| ------------------------------------ | ------------------------------------------------------------------------------------------------------------- |
+| void **set_active**(new_value: bool) | When set `True`, it enable focus and mouse stop modes and grab_focus, so that user won't click or press a key |
 
 ### DialogLauncher
 
