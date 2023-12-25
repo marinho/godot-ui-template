@@ -12,7 +12,11 @@ You can either use the nodes and scripts as they are, modify them to your game o
 
 ## AutoLoads
 
-Most features in this repository depend in one or other way on some of the autoload nodes to be enabled in the project. They are listed below.
+Most features in this repository depend in one or other way on some of the autoload nodes to be enabled in the project. The order matters, in regards to ensure their dependencies and/or layers on the screen canvas.
+
+![Project Autoloads](./docs/images/project-autoloads.png)
+
+They are listed below.
 
 ### DialogLauncher
 

@@ -109,24 +109,30 @@ func return_to_entry_scene():
 
 func go_to_pause_menu():
 	is_switching_page = true
+	ControlBlocker.set_active(true)
 	GuiTransitions.go_to(layout_name_pause_menu)
 	await GuiTransitions.show_completed
 	layout_pause_menu.get_node("FocusFirst").focus_on_first()
+	ControlBlocker.set_active(false)
 	is_switching_page = false
 	
 
 func go_to_settings():
 	is_switching_page = true
+	ControlBlocker.set_active(true)
 	GuiTransitions.go_to(layout_name_settings)
 	await GuiTransitions.show_completed
 	layout_settings.get_node("FocusFirst").focus_on_first()
+	ControlBlocker.set_active(false)
 	is_switching_page = false
 	
 
 func go_to_controls():
 	is_switching_page = true
+	ControlBlocker.set_active(true)
 	GuiTransitions.go_to(layout_name_controls)
 	await GuiTransitions.show_completed
 	layout_controls.get_node("FocusFirst").focus_on_first()
+	ControlBlocker.set_active(false)
 	is_switching_page = false
 	

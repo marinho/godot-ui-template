@@ -27,6 +27,7 @@ FreezeManager="*res://ui/autoloads/freeze_manager.gd"
 InGameUi="*res://ui/in_game_ui/in_game_ui.tscn"
 SceneTransition="*res://ui/autoloads/scene_transition.tscn"
 DialogLauncher="*res://ui/autoloads/dialog_launcher.tscn"
+ControlBlocker="*res://ui/autoloads/control_blocker.tscn"
 
 [dotnet]
 
