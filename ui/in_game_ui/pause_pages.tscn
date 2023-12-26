@@ -270,5 +270,6 @@ stretch_mode = 5
 [node name="UIAudioEffectsAttacher" parent="." instance=ExtResource("10_1um31")]
 root_path = NodePath("../Pages")
 
+[connection signal="pressed" from="Pages/PauseMenu/HBoxContainer/VBoxContainer/ResumeButton" to="." method="_resume_game"]
 [connection signal="pressed" from="PageLeftButton" to="." method="_navigate_to_left"]
 [connection signal="pressed" from="PageRightButton" to="." method="_navigate_to_right"]
