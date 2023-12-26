@@ -12,10 +12,11 @@ extends Control
 
 var is_switching_page = false
 var current_page_index = 0
+var transitions = {}
 
 
 func _ready():
-	create_transitions()
+	transitions = create_transitions()
 
 
 func _process(_delta):
@@ -51,11 +52,11 @@ func _navigate_to_left():
 	var new_page_index = (current_page_index - 1) if current_page_index > 0 else pages.size() - 1
 	var new_page = get_node(pages[new_page_index])
 
-	var current_page_transition = get_node("{}_to_left".format(current_page.name))
-	var new_page_transition = get_node("{}_to_left".format(new_page.name))
+	var current_page_transition = transitions["{}_to_left".format([current_page.name])]
+	var new_page_transition = transitions["{}_to_left".format([new_page.name])]
 
-	GuiTransitions.show(current_page_transition)
-	GuiTransitions.show(new_page_transition)
+	GuiTransitions.show(current_page_transition.layout_id)
+	GuiTransitions.show(new_page_transition.layout_id)
 
 	await GuiTransitions.show_completed
 	print("to left - show completed") # XXX
@@ -66,29 +67,35 @@ func _navigate_to_right():
 	var new_page_index = (current_page_index + 1) % pages.size()
 	var new_page = get_node(pages[new_page_index])
 
-	var current_page_transition = get_node("{}_to_right".format(current_page.name))
-	var new_page_transition = get_node("{}_to_right".format(new_page.name))
+	var current_page_transition = transitions["{}_to_right".format([current_page.name])]
+	var new_page_transition = transitions["{}_to_right".format([new_page.name])]
 
-	GuiTransitions.show(current_page_transition)
-	GuiTransitions.show(new_page_transition)
+	GuiTransitions.show(current_page_transition.layout_id)
+	GuiTransitions.show(new_page_transition.layout_id)
 
 	await GuiTransitions.show_completed
 	print("to right - show completed") # XXX
 
 
 func create_transitions():
+	var new_transitions = {}
+
 	for page_path in pages:
 		var page = get_node(page_path)
 
-		var transition_to_left = transition_to_left.instantiate()
-		transition_to_left.layout = page
-		transition_to_left.layout_id = "{}_to_left".format(page.name)
-		transition_to_left.group = page.get_children().front()
-		add_child(transition_to_left)
+		var left_transition = transition_to_left.instantiate() as GuiTransition
+		left_transition.layout = page.get_path()
+		left_transition.layout_id = "{}_to_left".format([page.name])
+		left_transition.group = page.get_children().front().get_path()
+		add_child(left_transition)
+		new_transitions[left_transition.layout_id] = left_transition
 
-		var transition_to_right = transition_to_right.instantiate()
-		transition_to_right.layout = page
-		transition_to_right.layout_id = "{}_to_right".format(page.name)
-		transition_to_right.group = page.get_children().front()
-		add_child(transition_to_right)
+		var right_transition = transition_to_right.instantiate()
+		right_transition.layout = page.get_path()
+		right_transition.layout_id = "{}_to_right".format([page.name])
+		right_transition.group = page.get_children().front().get_path()
+		add_child(right_transition)
+		new_transitions[right_transition.layout_id] = right_transition
+
+	return new_transitions
 	
