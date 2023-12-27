@@ -5,6 +5,8 @@ extends HBoxContainer
 @onready var load_button: Button = %LoadButton
 @onready var delete_button: Button = %DeleteButton
 
+signal game_deleted
+
 func set_game(game):
 	self.game_id = game.id
 	load_button.text = "#{} : {}%".format([game.id, game.completed_percent], "{}")
@@ -22,3 +24,4 @@ func _on_delete_button_pressed():
 
 	if confirmed:
 		GamePersistence.delete_saved_game(game_id)
+		game_deleted.emit()

@@ -13,13 +13,17 @@ func _process(_delta):
 		return
 
 	if Input.is_action_just_pressed(input_name):
-		can_return = false
-		ControlBlocker.set_active(true)
-		before_return.emit()
+		apply_return()
 
-		GuiTransitions.go_to(layout_to_return_to)
-		await GuiTransitions.show_completed
 
-		after_return.emit()
-		ControlBlocker.set_active(false)
-		can_return = true
+func apply_return():
+	can_return = false
+	ControlBlocker.set_active(true)
+	before_return.emit()
+
+	GuiTransitions.go_to(layout_to_return_to)
+	await GuiTransitions.show_completed
+
+	after_return.emit()
+	ControlBlocker.set_active(false)
+	can_return = true

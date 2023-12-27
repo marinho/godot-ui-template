@@ -7,6 +7,7 @@ extends Node
 
 @onready var new_game_button = %NewGameButton
 @onready var load_game_button = %LoadGameButton
+@onready var quit_button = %QuitButton
 @onready var escape_to_return = %EscapeToReturn
 @onready var credits_scrollable = %CreditsScrollable
 @onready var main_menu_screen = %MainMenu
@@ -15,8 +16,7 @@ extends Node
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	new_game_button.visible = can_start_new_game
-	load_game_button.visible = can_load_game()
+	_update_main_menu_buttons()
 	var focus_first = main_menu_screen.get_node("FocusFirst")
 	GuiTransitions.go_to("MainMenu")
 	await GuiTransitions.show_completed
@@ -86,6 +86,7 @@ func update_load_game_list():
 		var new_item = load_game_item.instantiate() as HBoxContainer
 		load_game_list.add_child(new_item)
 		new_item.set_game(game)
+		new_item.game_deleted.connect(func() : _after_game_deleted())
 
 	# Enable circular navigation between the buttons
 	var first_item = load_game_list.get_children().front() as HBoxContainer
@@ -104,3 +105,22 @@ func load_game_from_button(game):
 func _game_deletion_callback():
 	update_load_game_list()
 	_focus_on_first_load_game()
+
+
+func _update_main_menu_buttons():
+	new_game_button.visible = can_start_new_game
+	load_game_button.visible = can_load_game()
+
+	if load_game_button.visible:
+		new_game_button.focus_neighbor_top = load_game_button.get_path()
+		quit_button.focus_neighbor_bottom = load_game_button.get_path()
+	else:
+		new_game_button.focus_neighbor_top = quit_button.get_path()
+		quit_button.focus_neighbor_bottom = new_game_button.get_path()
+
+
+func _after_game_deleted():
+	var remaining_games = GamePersistence.get_saved_games()
+	if len(remaining_games) == 0:
+		_update_main_menu_buttons()
+		escape_to_return.apply_return()

@@ -11,6 +11,8 @@ var file_path = ""
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	file_path = "user://" + file_name
+	var global_path = ProjectSettings.globalize_path(file_path)
+	print("Game persistence file path: ", global_path)
 
 
 func _read_file_as_json():
@@ -42,6 +44,8 @@ func save_new_game(first_scene_path : String):
 		json["saved_games"] = []
 
 	var biggest_game_id = json["saved_games"].map(func(x): return x["id"]).max()
+	if biggest_game_id == null:
+		biggest_game_id = 0
 
 	var new_game = {
 		"id": biggest_game_id + 1,
