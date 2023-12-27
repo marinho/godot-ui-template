@@ -65,12 +65,12 @@ func _process(_delta):
 # 		page_right_button.pressed.emit()
 
 
-func _on_quit_button_pressed():
-	DialogLauncher.confirm("Are you sure to quit the game?")
-	var confirmed = await DialogLauncher.user_confirmed
+# func _on_quit_button_pressed():
+# 	DialogLauncher.confirm("Are you sure to quit the game?")
+# 	var confirmed = await DialogLauncher.user_confirmed
 
-	if confirmed:
-		get_tree().quit()
+# 	if confirmed:
+# 		get_tree().quit()
 
 
 func activate_for_game():
@@ -84,7 +84,7 @@ func pause():
 	is_paused = true
 	FreezeManager.set_freezed(true)
 
-	paused_pages.get_node("Pages").show_first_page()
+	paused_pages.get_node("Pages").activate()
 	GuiTransitions.go_to(layout_name_pause_pages)
 	# GuiTransitions.show(layout_name_pause_menu)
 	await GuiTransitions.show_completed
@@ -99,7 +99,7 @@ func unpause():
 	is_paused = false
 	FreezeManager.set_freezed(false)
 	
-	paused_pages.get_node("Pages").hide_all_pages()
+	paused_pages.get_node("Pages").deactivate()
 	GuiTransitions.go_to(layout_name_active_game)
 	await GuiTransitions.show_completed
 	# current_layout = layouts[layout_name_active_game]
@@ -108,9 +108,9 @@ func unpause():
 	can_be_paused = true
 
 
-func _return_to_entry_scene():
-	can_be_paused = false
-	GameManager.load_entry_scene()
+# func _return_to_entry_scene():
+# 	can_be_paused = false
+# 	GameManager.load_entry_scene()
 
 
 # func _switch_to_previous_layout():

@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://bwo1cyocj4ab7"]
+
+[ext_resource type="Script" path="res://addons/simple-gui-transitions/transition.gd" id="1_dr18g"]
+
+[node name="TransitionToFade" type="Node"]
+script = ExtResource("1_dr18g")
+auto_start = 0

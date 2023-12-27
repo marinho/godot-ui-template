@@ -4,5 +4,7 @@
 
 [node name="TransitionToLeft" type="Node"]
 script = ExtResource("1_tbg16")
+auto_start = 0
+fade_layout = 0
 animation_enter = 0
 animation_leave = 0

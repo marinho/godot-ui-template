@@ -1,7 +1,8 @@
-[gd_scene load_steps=13 format=3 uid="uid://bbqop3cv54bun"]
+[gd_scene load_steps=14 format=3 uid="uid://bbqop3cv54bun"]
 
 [ext_resource type="Texture2D" uid="uid://cvi8jgfqd2t1g" path="res://ui/images/arrow-narrow-left-semi.png" id="1_1k0g6"]
 [ext_resource type="Script" path="res://ui/in_game_ui/pause_pages.gd" id="1_2acap"]
+[ext_resource type="PackedScene" uid="uid://bwo1cyocj4ab7" path="res://ui/in_game_ui/transition_to_fade.tscn" id="2_84qq4"]
 [ext_resource type="Texture2D" uid="uid://ceyc1t8u2u4q" path="res://ui/images/arrow-narrow-left-inverted.png" id="2_n6grq"]
 [ext_resource type="PackedScene" uid="uid://b14alqdoiya2q" path="res://ui/in_game_ui/transition_to_left.tscn" id="2_xqnn2"]
 [ext_resource type="Texture2D" uid="uid://bt1ebn58tciix" path="res://ui/images/arrow-narrow-left.png" id="3_r1hav"]
@@ -23,6 +24,7 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_2acap")
 pages = Array[NodePath]([NodePath("Pages/PauseMenu"), NodePath("Pages/Settings"), NodePath("Pages/Controls")])
+transition_to_fade = ExtResource("2_84qq4")
 transition_to_left = ExtResource("2_xqnn2")
 transition_to_right = ExtResource("3_vo5km")
 
@@ -38,6 +40,16 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="BackgroundBlocker" type="ColorRect" parent="Pages/PauseMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.298039, 0.298039, 0.298039, 1)
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Pages/PauseMenu"]
 layout_mode = 1
@@ -77,17 +89,6 @@ text = "Quit Game"
 script = ExtResource("7_2nluw")
 controls_in_sequence = [null, null, null]
 
-[node name="BackgroundBlocker" type="ColorRect" parent="Pages/PauseMenu"]
-modulate = Color(1, 1, 1, 0.784314)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-color = Color(0.298039, 0.298039, 0.298039, 1)
-
 [node name="Settings" type="Control" parent="Pages"]
 unique_name_in_owner = true
 process_mode = 2
@@ -98,6 +99,16 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="BackgroundBlocker" type="ColorRect" parent="Pages/Settings"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.298039, 0.298039, 0.298039, 1)
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Pages/Settings"]
 layout_mode = 1
@@ -166,17 +177,6 @@ size_flags_vertical = 4
 script = ExtResource("7_2nluw")
 controls_in_sequence = [null, null]
 
-[node name="BackgroundBlocker" type="ColorRect" parent="Pages/Settings"]
-modulate = Color(1, 1, 1, 0.784314)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-color = Color(0.298039, 0.298039, 0.298039, 1)
-
 [node name="Controls" type="Control" parent="Pages"]
 unique_name_in_owner = true
 process_mode = 2
@@ -187,6 +187,16 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="BackgroundBlocker" type="ColorRect" parent="Pages/Controls"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.298039, 0.298039, 0.298039, 1)
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Pages/Controls"]
 layout_mode = 1
@@ -225,16 +235,8 @@ alignment = 1
 [node name="FocusFirst" type="Node" parent="Pages/Controls"]
 script = ExtResource("7_2nluw")
 
-[node name="BackgroundBlocker" type="ColorRect" parent="Pages/Controls"]
-modulate = Color(1, 1, 1, 0.784314)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-color = Color(0.298039, 0.298039, 0.298039, 1)
+[node name="Transitions" type="Node" parent="."]
+unique_name_in_owner = true
 
 [node name="PageLeftButton" type="TextureButton" parent="." groups=["UIButtons"]]
 unique_name_in_owner = true
@@ -271,5 +273,7 @@ stretch_mode = 5
 root_path = NodePath("../Pages")
 
 [connection signal="pressed" from="Pages/PauseMenu/HBoxContainer/VBoxContainer/ResumeButton" to="." method="_resume_game"]
+[connection signal="pressed" from="Pages/PauseMenu/HBoxContainer/VBoxContainer/MainMenuButton" to="." method="_return_to_entry_scene"]
+[connection signal="pressed" from="Pages/PauseMenu/HBoxContainer/VBoxContainer/QuitButton" to="." method="_quit_game"]
 [connection signal="pressed" from="PageLeftButton" to="." method="_navigate_to_left"]
 [connection signal="pressed" from="PageRightButton" to="." method="_navigate_to_right"]

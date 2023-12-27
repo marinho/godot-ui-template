@@ -4,5 +4,7 @@
 
 [node name="TransitionToRight" type="Node"]
 script = ExtResource("1_sshw8")
+auto_start = 0
+fade_layout = 0
 animation_enter = 1
 animation_leave = 1
