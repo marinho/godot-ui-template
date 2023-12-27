@@ -9,21 +9,30 @@ const layout_name_controls = "Controls"
 @onready var page_left_input_name = "ui_page_up"
 @onready var page_right_input_name = "ui_page_down"
 
-@onready var layouts = {
-	layout_name_active_game: %ActiveGame,
-	layout_name_pause_menu: %PauseMenu,
-	layout_name_settings: %Settings,
-	layout_name_controls: %Controls,
-}
+@onready var pages = [
+	{
+		"name": layout_name_active_game,
+		"layout": %ActiveGame,
+		"transition": %TransitionToActiveGame,
+	},
+	{
+		"name": layout_name_pause_menu,
+		"layout": %PauseMenu,
+		"transition": %TransitionToPauseMenu,
+	},
+	{
+		"name": layout_name_settings,
+		"layout": %Settings,
+		"transition": %TransitionToSettings,
+	},
+	{
+		"name": layout_name_controls,
+		"layout": %Controls,
+		"transition": %TransitionToControls,
+	},
+]
 
-@onready var transitions = {
-	layout_name_active_game: %TransitionToActiveGame,
-	layout_name_pause_menu: %TransitionToPauseMenu,
-	layout_name_settings: %TransitionToSettings,
-	layout_name_controls: %TransitionToControls,
-}
-
-@onready var current_layout = layouts[layout_name_active_game]
+@onready var current_layout = %ActiveGame
 
 signal paused
 signal unpaused
@@ -59,7 +68,7 @@ func paging_input():
 	else:
 		return
 
-	if current_layout == layouts[layout_name_active_game]:
+	if current_layout == _get_page(layout_name_active_game).layout:
 		return
 
 	if change_direction < 0:
@@ -82,19 +91,17 @@ func activate_for_game():
 	visible = true
 	can_be_paused = true
 	GuiTransitions.show(layout_name_active_game)
-	current_layout = layouts[layout_name_active_game]
+	current_layout = _get_page(layout_name_active_game).layout
 
 
 func pause():
 	is_paused = true
 	FreezeManager.set_freezed(true)
 
-	transitions[layout_name_pause_menu].animation_enter = GuiTransition.Anim.DEFAULT
-
 	GuiTransitions.go_to(layout_name_pause_menu)
 	await GuiTransitions.show_completed
-	layouts[layout_name_pause_menu].get_node("FocusFirst").focus_on_first()
-	current_layout = layouts[layout_name_pause_menu]
+	_get_page(layout_name_pause_menu).layout.get_node("FocusFirst").focus_on_first()
+	current_layout = _get_page(layout_name_pause_menu).layout
 
 	paused.emit()
 	can_be_paused = true
@@ -104,11 +111,9 @@ func unpause():
 	is_paused = false
 	FreezeManager.set_freezed(false)
 	
-	transitions[layout_name_pause_menu].animation_leave = GuiTransition.Anim.DEFAULT
-
 	GuiTransitions.go_to(layout_name_active_game)
 	await GuiTransitions.show_completed
-	current_layout = layouts[layout_name_active_game]
+	current_layout = _get_page(layout_name_active_game).layout
 
 	unpaused.emit()
 	can_be_paused = true
@@ -120,20 +125,20 @@ func _return_to_entry_scene():
 
 
 func _switch_to_previous_layout():
-	if current_layout == layouts[layout_name_pause_menu]:
+	if current_layout == _get_page(layout_name_pause_menu).layout:
 		_transition_to_layout(layout_name_controls)
-	elif current_layout == layouts[layout_name_settings]:
+	elif current_layout == _get_page(layout_name_settings).layout:
 		_transition_to_layout(layout_name_pause_menu)
-	elif current_layout == layouts[layout_name_controls]:
+	elif current_layout == _get_page(layout_name_controls).layout:
 		_transition_to_layout(layout_name_settings)
 
 
 func _switch_to_next_layout():
-	if current_layout == layouts[layout_name_pause_menu]:
+	if current_layout == _get_page(layout_name_pause_menu).layout:
 		_transition_to_layout(layout_name_settings)
-	elif current_layout == layouts[layout_name_settings]:
+	elif current_layout == _get_page(layout_name_settings).layout:
 		_transition_to_layout(layout_name_controls)
-	elif current_layout == layouts[layout_name_controls]:
+	elif current_layout == _get_page(layout_name_controls).layout:
 		_transition_to_layout(layout_name_pause_menu)
 
 
@@ -142,7 +147,10 @@ func _transition_to_layout(transition_to):
 	ControlBlocker.set_active(true)
 	GuiTransitions.go_to(transition_to)
 	await GuiTransitions.show_completed
-	layouts[transition_to].get_node("FocusFirst").focus_on_first()
+	_get_page(transition_to).layout.get_node("FocusFirst").focus_on_first()
 	ControlBlocker.set_active(false)
-	current_layout = layouts[transition_to]
+	current_layout = _get_page(transition_to).layout
 	is_switching_page = false
+
+func _get_page(name):
+	return pages.filter(func(page): return page.name == name).front()
