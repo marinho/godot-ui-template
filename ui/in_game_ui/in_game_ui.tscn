@@ -332,6 +332,36 @@ size_flags_vertical = 3
 theme_override_constants/separation = 10
 alignment = 1
 
+[node name="KeyboardControls" type="RichTextLabel" parent="Pages/Controls/HBoxContainer/VBoxContainer2/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("1_ghw0i")
+bbcode_enabled = true
+text = "[b]Keyboard:[/b]
+
+WASD: directions
+Space: jump
+C: collect
+Tab: focus next
+PgUp or <: page left
+PgDn or -: page right"
+fit_content = true
+
+[node name="GamepadControls" type="RichTextLabel" parent="Pages/Controls/HBoxContainer/VBoxContainer2/VBoxContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+theme = ExtResource("1_ghw0i")
+bbcode_enabled = true
+text = "[b]Gamepad:[/b]
+
+L stick: directions
+B: jump
+A: collect
+ZL: page left
+ZR: page right"
+fit_content = true
+
 [node name="PageLeftButton" type="TextureButton" parent="Pages/Controls" groups=["UIButtons"]]
 modulate = Color(1, 1, 1, 0.588235)
 layout_mode = 1

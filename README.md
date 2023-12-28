@@ -265,3 +265,10 @@ The used font is [JetBrains_Mono](https://fonts.google.com/specimen/JetBrains+Mo
 ## License
 
 Read [LICENSE](./LICENSE) file
+
+### Third parties
+
+- [Kenney UI Audio](https://www.kenney.nl/assets/ui-audio)
+- [Simple GUI Transitions](https://github.com/murikistudio/simple-gui-transitions)
+- [Input Helper](https://github.com/nathanhoad/godot_input_helper/)
+

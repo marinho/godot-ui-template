@@ -8,6 +8,8 @@ const layout_name_controls = "Controls"
 @onready var toggle_input_name = "ui_toggle_pause"
 @onready var page_left_input_name = "ui_page_up"
 @onready var page_right_input_name = "ui_page_down"
+@onready var keyboard_controls = %KeyboardControls
+@onready var gamepad_controls = %GamepadControls
 
 @onready var pages = [
 	{
@@ -40,6 +42,11 @@ signal unpaused
 var is_paused = false
 var can_be_paused = false
 var is_switching_page = false
+
+
+func _ready():
+	InputHelper.device_changed.connect(func(device: String, idx: int): _device_changed(device, idx))
+	_device_changed(InputHelper.device)
 
 
 func _process(_delta):
@@ -152,5 +159,12 @@ func _transition_to_layout(transition_to):
 	current_layout = _get_page(transition_to).layout
 	is_switching_page = false
 
+
 func _get_page(name):
 	return pages.filter(func(page): return page.name == name).front()
+
+
+func _device_changed(device: String, device_index: int = -1):
+	print("Input Device: ", device)
+	gamepad_controls.visible = device != "keyboard"
+	keyboard_controls.visible = device == "keyboard"
